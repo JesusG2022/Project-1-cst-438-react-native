@@ -7,30 +7,6 @@ import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import Page1 from './pages/page1';
 import Page2 from './pages/page2';
-import * as SQLite from 'expo-sqlite';
-
-let dbPromise = SQLite.openDatabaseAsync('mydatabase.db');
-
-dbPromise.then(async (db) => {
-  await db.execAsync(`
-    CREATE TABLE IF NOT EXISTS users (
-      User_id INTEGER PRIMARY KEY AUTOINCREMENT,
-      username TEXT NOT NULL,
-      password TEXT NOT NULL
-    );
-  `);
-});
-
-dbPromise.then(async (db) => {
-  await db.execAsync(`
-    CREATE TABLE IF NOT EXISTS poem (
-      Poem_id INTEGER PRIMARY KEY AUTOINCREMENT,
-      User_id INTEGER NOT NULL,
-      content TEXT NOT NULL,
-      FOREIGN KEY (User_id) REFERENCES users (User_id)
-    );
-  `);
-});
 
 
 const Stack = createStackNavigator();
