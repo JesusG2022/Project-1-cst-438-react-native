@@ -8,7 +8,13 @@ import Home from './pages/Home';
 import Page1 from './pages/page1';
 import Page2 from './pages/page2';
 
+import * as SQLite from 'expo-sqlite';
 
+// const db = await SQLite.openDatabaseAsync('databaseName');
+
+// const db =  SQLite.openDatabaseSync("databaseName"); 
+
+// const db = SQLite.openDatabase("databaseName");
 const Stack = createStackNavigator();
 
 export default function App() {
