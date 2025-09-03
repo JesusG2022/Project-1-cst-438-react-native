@@ -7,6 +7,8 @@ import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import Page1 from './pages/page1';
 import Page2 from './pages/page2';
+import Dictionary from './pages/WordOftheDay';
+import WordOftheDay from './pages/WordOftheDay';
 
 
 const Stack = createStackNavigator();
@@ -21,6 +23,8 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Page1" component={Page1} />
         <Stack.Screen name="Page2" component={Page2} />
+        <Stack.Screen name="WordOftheDay" component={WordOftheDay} />
+
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>

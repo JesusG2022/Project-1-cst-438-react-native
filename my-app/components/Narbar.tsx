@@ -16,6 +16,9 @@ const Navbar = () => {
       <TouchableOpacity onPress={() => navigation.navigate('Page2')}>
         <Text style={styles.link}>Page 2</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('WordOftheDay')}>
+        <Text style={styles.link}>Word</Text>
+      </TouchableOpacity>
     </View>
   );
 };
