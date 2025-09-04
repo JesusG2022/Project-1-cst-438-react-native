@@ -9,6 +9,8 @@ import Page1 from './pages/page1';
 import Page2 from './pages/page2';
 import Dictionary from './pages/WordOftheDay';
 import WordOftheDay from './pages/WordOftheDay';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 import * as SQLite from 'expo-sqlite';
 
