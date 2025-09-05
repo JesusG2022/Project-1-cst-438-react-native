@@ -12,6 +12,7 @@ import WordOftheDay from './pages/WordOftheDay';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import './database/database'
 
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -25,7 +26,6 @@ export default function App() {
         <Stack.Screen name="Page1" component={Page1} />
         <Stack.Screen name="Page2" component={Page2} />
         <Stack.Screen name="WordOftheDay" component={WordOftheDay} />
-
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
