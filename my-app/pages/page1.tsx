@@ -2,36 +2,49 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Navbar from '../components/Narbar';
 import Title from '../components/Title';
+import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const users = [
+type RootStackParamList = {
+  Page1: undefined;
+  Page2: undefined;
+};
+
+type Page1ScreenProp = NativeStackNavigationProp<RootStackParamList, 'Page1'>;
+
+
+const Page1 = () => {
+  const users = [
   {
     name: 'Sample User',
     bio: 'This user is a great poet! They love the beach and go to CSUMB.',
-  //include image later
   },
   {
     name: 'Sample User 2',
     bio: 'This user loves to read! Although their writing needs some work....',
-  //include image later
   },
   {
     name: 'Sample User 3',
     bio: 'This user is just here for the vibes.',
-  //include image later
   },
 ];
 
-const Page1 = () => {
+//hyperlinks on user name to page 2 for now
+  const navigation = useNavigation<Page1ScreenProp>();
+
   return (
     <View style={styles.container}>
       <Title />
       <Navbar />
-      <Text style={styles.pageTitle}>Page 1</Text>
+      <Text style={styles.pageTitle}>User Profiles</Text>
       <View style={styles.break} />
       <View style={styles.usersContainer}>
         {users.map((user, idx) => (
           <View key={idx} style={styles.userBox}>
-            <Text style={styles.name}>{user.name}</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Page2')}>
+              <Text style={[styles.name, { textDecorationLine: 'underline' }]}>{user.name}</Text>
+            </TouchableOpacity>
             <Text style={styles.bio}>{user.bio}</Text>
           </View>
         ))}
