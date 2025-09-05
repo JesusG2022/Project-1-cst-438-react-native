@@ -1,106 +1,118 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native'; // Import necessary components from React Native
+import { useNavigation } from '@react-navigation/native'; // Import navigation hook for screen navigation
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack'; // Import type for navigation props
 
-import { addUser } from '../database/database';
+import { addUser } from '../database/database'; // Import the addUser function to add users to the database
 
-// Removed duplicate handleSignUp function from top-level scope
-
+// Define the parameter list for the stack navigator
 type RootStackParamList = {
-  Start: undefined;
-  SignIn: undefined;
-  // add other screens here if needed
+  Start: undefined; // No parameters for the Start screen
+  SignIn: undefined; // No parameters for the SignIn screen
+  // Add other screens here if needed
 };
 
+// SignUp component: Allows users to create an account
 const SignUp = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [bio, setBio] = useState(''); // State for Bio
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>(); // Hook to access navigation object
 
-const handleSignUp = async () => {
-  try {
-    await addUser(username, password, email, bio); // Add user to the database
-    console.log('User added successfully:', { username, password, email, bio });
-    navigation.navigate('Start');
-  } catch (error) {
-    console.error('Error during sign-up:', error);
-  }
-};
+  // State variables to store user input
+  const [username, setUsername] = useState(''); // State for username
+  const [password, setPassword] = useState(''); // State for password
+  const [email, setEmail] = useState(''); // State for email
+  const [bio, setBio] = useState(''); // State for bio
+
+  // Handler for the Sign Up button
+  const handleSignUp = async () => {
+    try {
+      // Add user to the database
+      await addUser(username, password, email, bio);
+      console.log('User added successfully:', { username, password, email, bio }); // Log success message
+      navigation.navigate('Start'); // Navigate back to the Start screen
+    } catch (error) {
+      console.error('Error during sign-up:', error); // Log any errors during sign-up
+    }
+  };
 
   return (
     <View style={styles.container}>
+      {/* Page title */}
       <Text style={styles.title}>Sign Up</Text>
       <View style={styles.inputContainer}>
+        {/* Input field for username */}
         <TextInput
           style={styles.input}
           placeholder="Username"
           value={username}
           onChangeText={setUsername}
-          autoCapitalize="none"
+          autoCapitalize="none" // Disable auto-capitalization
         />
+        {/* Input field for password */}
         <TextInput
           style={styles.input}
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry
+          secureTextEntry // Hide password input
         />
+        {/* Input field for email */}
         <TextInput
           style={styles.input}
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
-          keyboardType="email-address"
+          keyboardType="email-address" // Use email keyboard layout
         />
+        {/* Input field for bio */}
         <TextInput
-          style={[styles.input, styles.bioInput]} // Add additional styling for Bio
+          style={[styles.input, styles.bioInput]} // Additional styling for bio input
           placeholder="Bio"
           value={bio}
           onChangeText={setBio}
-          multiline // Allow multiple lines for Bio
+          multiline // Allow multiple lines for bio
         />
+        {/* Sign Up button */}
         <Button title="Sign Up" onPress={handleSignUp} />
-        <View style={{ height: 20 }} />
+        <View style={{ height: 20 }} /> {/* Spacer */}
+        {/* Back button */}
         <Button title="Back" onPress={() => navigation.navigate('Start')} />
-        <View style={{ height: 20 }} />
+        <View style={{ height: 20 }} /> {/* Spacer */}
       </View>
     </View>
   );
 };
 
+// Styles for the SignUp component
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 16,
+    flex: 1, // Take up the full screen
+    alignItems: 'center', // Center items horizontally
+    justifyContent: 'center', // Center items vertically
+    padding: 16, // Add padding around the container
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 24,
-    textAlign: 'center',
+    fontSize: 28, // Set font size for the title
+    fontWeight: 'bold', // Make the title bold
+    marginBottom: 24, // Add space below the title
+    textAlign: 'center', // Center-align the title
   },
   inputContainer: {
-    width: '100%',
-    maxWidth: 300,
+    width: '100%', // Take up the full width of the screen
+    maxWidth: 300, // Set a maximum width for the input container
   },
   input: {
-    height: 40,
-    borderColor: '#1976d2',
-    borderWidth: 1,
-    borderRadius: 4,
-    marginBottom: 16,
-    paddingHorizontal: 8,
-    backgroundColor: '#fff',
+    height: 40, // Set the height of the input fields
+    borderColor: '#1976d2', // Set the border color
+    borderWidth: 1, // Set the border width
+    borderRadius: 4, // Round the corners of the input fields
+    marginBottom: 16, // Add space below each input field
+    paddingHorizontal: 8, // Add horizontal padding inside the input fields
+    backgroundColor: '#fff', // Set the background color of the input fields
   },
   bioInput: {
-    height: 80, // Increase height for Bio
-    textAlignVertical: 'top', // Align text to the top
+    height: 80, // Increase height for the bio input
+    textAlignVertical: 'top', // Align text to the top of the input field
   },
 });
 
-export default SignUp;
+export default SignUp; // Export the SignUp component as default

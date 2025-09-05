@@ -1,43 +1,51 @@
 import React from 'react';
-import { View, Button, StyleSheet } from 'react-native';
-import Title from '../components/Title';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { View, Button, StyleSheet } from 'react-native'; // Import necessary components from React Native
+import Title from '../components/Title'; // Import the Title component for the page title
+import { useNavigation } from '@react-navigation/native'; // Import navigation hook for screen navigation
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack'; // Import type for navigation props
 
+// Define the parameter list for the stack navigator
 type RootStackParamList = {
-  SignIn: undefined;
-  SignUp: undefined;
+  SignIn: undefined; // No parameters for the SignIn screen
+  SignUp: undefined; // No parameters for the SignUp screen
 };
 
+// Start component: The initial screen of the app
 const Start = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>(); // Hook to access navigation object
 
+  // Handler for navigating to the SignIn screen
   const handleSignIn = () => {
-    navigation.navigate('SignIn');
-    console.log('Sign In button clicked');
+    navigation.navigate('SignIn'); // Navigate to the SignIn screen
+    console.log('Sign In button clicked'); // Log the button click
   };
 
+  // Handler for navigating to the SignUp screen
   const handleSignUp = () => {
-    navigation.navigate('SignUp'); // Corrected casing
-    console.log('Sign Up button clicked');
+    navigation.navigate('SignUp'); // Navigate to the SignUp screen
+    console.log('Sign Up button clicked'); // Log the button click
   };
 
   return (
     <View style={styles.container}>
+      {/* Display the title of the app */}
       <Title />
+      {/* Button to navigate to the SignIn screen */}
       <Button title="Sign In" onPress={handleSignIn} />
-      <View style={{ height: 20 }} />
+      <View style={{ height: 20 }} /> {/* Spacer between buttons */}
+      {/* Button to navigate to the SignUp screen */}
       <Button title="Sign Up" onPress={handleSignUp} />
     </View>
   );
 };
 
+// Styles for the Start component
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1, // Take up the full screen
+    alignItems: 'center', // Center items horizontally
+    justifyContent: 'center', // Center items vertically
   },
 });
 
-export default Start;
+export default Start; // Export the Start component as default
