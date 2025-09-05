@@ -10,15 +10,8 @@ import Page2 from './pages/page2';
 import Dictionary from './pages/WordOftheDay';
 import WordOftheDay from './pages/WordOftheDay';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import './database/database'
 
-
-import * as SQLite from 'expo-sqlite';
-
-// const db = await SQLite.openDatabaseAsync('databaseName');
-
-// const db =  SQLite.openDatabaseSync("databaseName"); 
-
-// const db = SQLite.openDatabase("databaseName");
 const Stack = createStackNavigator();
 
 export default function App() {
