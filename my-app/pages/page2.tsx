@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Navbar from '../components/Narbar';
+import Navbar from '../components/Navbar';
 import Title from '../components/Title';
 
 const Page2 = () => {

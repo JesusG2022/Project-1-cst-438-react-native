@@ -1,9 +1,23 @@
+// import React from 'react';
+// import { View, Text, StyleSheet } from 'react-native';
+import Title from '../components/Title';
+import Navbar from '../components/Navbar';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Title from '../components/Title';
-import Navbar from '../components/Narbar';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParamList } from '../App';
+type HomeProps = StackScreenProps<RootStackParamList, 'Home'>;
 
-const Home = () => {
+
+import { RouteProp } from '@react-navigation/native';
+
+// type HomeProps = {
+//   route: RouteProp<{ params: { userId: string } }, 'params'>;
+// };
+
+const Home: React.FC<HomeProps> = ({ route }) => {
+  const { userId } = route.params;
+  console.log('User ID:', userId);
   return (
     <View style={styles.container}>
       <Title />

@@ -1,3 +1,4 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7,13 +8,24 @@ import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import Page1 from './pages/page1';
 import Page2 from './pages/page2';
-import Dictionary from './pages/WordOftheDay';
 import WordOftheDay from './pages/WordOftheDay';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import './database/database'
+import './database/database';
+import { StackScreenProps } from '@react-navigation/stack';
 
+type HomeProps = StackScreenProps<RootStackParamList, 'Home'>;
 
-const Stack = createStackNavigator();
+// Define the param list for your stack
+export type RootStackParamList = {
+  Start: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
+  Home: { userId: string };
+  Page1: undefined;
+  Page2: undefined;
+  WordOftheDay: undefined;
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
@@ -22,7 +34,11 @@ export default function App() {
         <Stack.Screen name="Start" component={Start} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          initialParams={{ userId: 'defaultUserId' }} // Pass initial params if needed
+        />
         <Stack.Screen name="Page1" component={Page1} />
         <Stack.Screen name="Page2" component={Page2} />
         <Stack.Screen name="WordOftheDay" component={WordOftheDay} />

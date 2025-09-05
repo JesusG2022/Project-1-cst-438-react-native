@@ -1,36 +1,40 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Navbar from '../components/Narbar';
+import Navbar from '../components/Navbar';
 import Title from '../components/Title';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type RootStackParamList = {
+  Start: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
+  Home: undefined;
   Page1: undefined;
   Page2: undefined;
+  WordOftheDay: undefined;
 };
 
 type Page1ScreenProp = NativeStackNavigationProp<RootStackParamList, 'Page1'>;
 
-
 const Page1 = () => {
   const users = [
-  {
-    name: 'Sample User',
-    bio: 'This user is a great poet! They love the beach and go to CSUMB.',
-  },
-  {
-    name: 'Sample User 2',
-    bio: 'This user loves to read! Although their writing needs some work....',
-  },
-  {
-    name: 'Sample User 3',
-    bio: 'This user is just here for the vibes.',
-  },
-];
+    {
+      name: 'Sample User',
+      bio: 'This user is a great poet! They love the beach and go to CSUMB.',
+    },
+    {
+      name: 'Sample User 2',
+      bio: 'This user loves to read! Although their writing needs some work....',
+    },
+    {
+      name: 'Sample User 3',
+      bio: 'This user is just here for the vibes.',
+    },
+  ];
 
-//hyperlinks on user name to page 2 for now
+  // Hyperlinks on user name to page 2 for now
   const navigation = useNavigation<Page1ScreenProp>();
 
   return (
@@ -89,10 +93,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 16,
     alignItems: 'flex-start',
-    // shadowColor: '#000',
-    // shadowOpacity: 0.05,
-    // shadowRadius: 2,
-    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', 
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', // Retain boxShadow for web compatibility
     elevation: 2,
   },
 });

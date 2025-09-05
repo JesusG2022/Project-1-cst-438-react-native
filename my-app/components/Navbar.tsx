@@ -11,7 +11,7 @@ const Navbar = () => {
         <Text style={styles.link}>Home</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Page1')}>
-        <Text style={styles.link}>Page 1</Text>
+        <Text style={styles.link}>Accounts</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Page2')}>
         <Text style={styles.link}>Page 2</Text>

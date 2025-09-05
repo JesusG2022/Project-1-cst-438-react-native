@@ -3,6 +3,10 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+import { addUser } from '../database/database';
+
+// Removed duplicate handleSignUp function from top-level scope
+
 type RootStackParamList = {
   Start: undefined;
   SignIn: undefined;
@@ -14,12 +18,17 @@ const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [bio, setBio] = useState(''); // State for Bio
 
-  const handleSignUp = () => {
-    console.log('Sign Up button clicked');
-    // You can add registration logic here
+const handleSignUp = async () => {
+  try {
+    await addUser(username, password, email, bio); // Add user to the database
+    console.log('User added successfully:', { username, password, email, bio });
     navigation.navigate('Start');
-  };
+  } catch (error) {
+    console.error('Error during sign-up:', error);
+  }
+};
 
   return (
     <View style={styles.container}>
@@ -45,13 +54,18 @@ const SignUp = () => {
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
-          autoCapitalize="none"
+        />
+        <TextInput
+          style={[styles.input, styles.bioInput]} // Add additional styling for Bio
+          placeholder="Bio"
+          value={bio}
+          onChangeText={setBio}
+          multiline // Allow multiple lines for Bio
         />
         <Button title="Sign Up" onPress={handleSignUp} />
         <View style={{ height: 20 }} />
         <Button title="Back" onPress={() => navigation.navigate('Start')} />
         <View style={{ height: 20 }} />
-        <Button title="Sign In" onPress={() => navigation.navigate('SignIn')} />
       </View>
     </View>
   );
@@ -82,6 +96,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingHorizontal: 8,
     backgroundColor: '#fff',
+  },
+  bioInput: {
+    height: 80, // Increase height for Bio
+    textAlignVertical: 'top', // Align text to the top
   },
 });
 
