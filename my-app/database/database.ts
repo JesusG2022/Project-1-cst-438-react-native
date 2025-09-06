@@ -89,5 +89,17 @@ export const addUser = async (username: string, password: string, email: string,
   }
 };
 
+//fetch users function
+export const getAllUsers = async () => {
+  try {
+    const db = await dbPromise;
+    const result = await db.getAllAsync('SELECT Username, Bio FROM User13');
+    return result; // Array of { Username, Bio }
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return [];
+  }
+};
+
 // Call the function to initialize the database when the module is loaded
 initializeDatabase();

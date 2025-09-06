@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet } from 'react-native'; // Import necessary components from React Native
 import Navbar from '../components/Navbar'; // Import the Navbar component for navigation links
 import Title from '../components/Title'; // Import the Title component for the page title
 import { useNavigation } from '@react-navigation/native'; // Import navigation hook for screen navigation
 import { TouchableOpacity } from 'react-native'; // Import TouchableOpacity for clickable elements
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'; // Import type for navigation props
+import { getAllUsers } from '../database/database';
 
 // Define the parameter list for the stack navigator
 type RootStackParamList = {
@@ -22,24 +23,17 @@ type Page1ScreenProp = NativeStackNavigationProp<RootStackParamList, 'Page1'>;
 
 // Page1 component: Displays a list of user profiles
 const Page1 = () => {
-  // Sample user data
-  const users = [
-    {
-      name: 'Sample User',
-      bio: 'This user is a great poet! They love the beach and go to CSUMB.',
-    },
-    {
-      name: 'Sample User 2',
-      bio: 'This user loves to read! Although their writing needs some work....',
-    },
-    {
-      name: 'Sample User 3',
-      bio: 'This user is just here for the vibes.',
-    },
-  ];
-
-  // Hook to access navigation object
+  //get users from database and navigation
+  const [users, setUsers] = useState<{ Username: string; Bio: string }[]>([]);
   const navigation = useNavigation<Page1ScreenProp>();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const dbUsers = await getAllUsers();
+      setUsers(dbUsers as { Username: string; Bio: string }[]);
+    };
+    fetchUsers();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -56,10 +50,10 @@ const Page1 = () => {
           <View key={idx} style={styles.userBox}>
             {/* Navigate to Page2 when the user name is clicked */}
             <TouchableOpacity onPress={() => navigation.navigate('Page2')}>
-              <Text style={[styles.name, { textDecorationLine: 'underline' }]}>{user.name}</Text>
+              <Text style={[styles.name, { textDecorationLine: 'underline' }]}>{user.Username}</Text>
             </TouchableOpacity>
             {/* Display the user's bio */}
-            <Text style={styles.bio}>{user.bio}</Text>
+            <Text style={styles.bio}>{user.Bio}</Text>
           </View>
         ))}
       </View>
