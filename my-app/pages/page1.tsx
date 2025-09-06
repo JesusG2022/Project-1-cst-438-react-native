@@ -1,50 +1,64 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Navbar from '../components/Narbar';
-import Title from '../components/Title';
-import { useNavigation } from '@react-navigation/native';
-import { TouchableOpacity } from 'react-native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { View, Text, StyleSheet } from 'react-native'; // Import necessary components from React Native
+import Navbar from '../components/Navbar'; // Import the Navbar component for navigation links
+import Title from '../components/Title'; // Import the Title component for the page title
+import { useNavigation } from '@react-navigation/native'; // Import navigation hook for screen navigation
+import { TouchableOpacity } from 'react-native'; // Import TouchableOpacity for clickable elements
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'; // Import type for navigation props
 
+// Define the parameter list for the stack navigator
 type RootStackParamList = {
-  Page1: undefined;
-  Page2: undefined;
+  Start: undefined; // No parameters for the Start screen
+  SignIn: undefined; // No parameters for the SignIn screen
+  SignUp: undefined; // No parameters for the SignUp screen
+  Home: undefined; // No parameters for the Home screen
+  Page1: undefined; // No parameters for Page1
+  Page2: undefined; // No parameters for Page2
+  WordOftheDay: undefined; // No parameters for WordOftheDay
 };
 
+// Define the type for the Page1 screen navigation prop
 type Page1ScreenProp = NativeStackNavigationProp<RootStackParamList, 'Page1'>;
 
-
+// Page1 component: Displays a list of user profiles
 const Page1 = () => {
+  // Sample user data
   const users = [
-  {
-    name: 'Sample User',
-    bio: 'This user is a great poet! They love the beach and go to CSUMB.',
-  },
-  {
-    name: 'Sample User 2',
-    bio: 'This user loves to read! Although their writing needs some work....',
-  },
-  {
-    name: 'Sample User 3',
-    bio: 'This user is just here for the vibes.',
-  },
-];
+    {
+      name: 'Sample User',
+      bio: 'This user is a great poet! They love the beach and go to CSUMB.',
+    },
+    {
+      name: 'Sample User 2',
+      bio: 'This user loves to read! Although their writing needs some work....',
+    },
+    {
+      name: 'Sample User 3',
+      bio: 'This user is just here for the vibes.',
+    },
+  ];
 
-//hyperlinks on user name to page 2 for now
+  // Hook to access navigation object
   const navigation = useNavigation<Page1ScreenProp>();
 
   return (
     <View style={styles.container}>
+      {/* Display the title of the app */}
       <Title />
+      {/* Display the navigation bar */}
       <Navbar />
+      {/* Display the page title */}
       <Text style={styles.pageTitle}>User Profiles</Text>
-      <View style={styles.break} />
+      <View style={styles.break} /> {/* Spacer */}
       <View style={styles.usersContainer}>
+        {/* Render a list of user profiles */}
         {users.map((user, idx) => (
           <View key={idx} style={styles.userBox}>
+            {/* Navigate to Page2 when the user name is clicked */}
             <TouchableOpacity onPress={() => navigation.navigate('Page2')}>
               <Text style={[styles.name, { textDecorationLine: 'underline' }]}>{user.name}</Text>
             </TouchableOpacity>
+            {/* Display the user's bio */}
             <Text style={styles.bio}>{user.bio}</Text>
           </View>
         ))}
@@ -53,48 +67,46 @@ const Page1 = () => {
   );
 };
 
+// Styles for the Page1 component
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    paddingTop: 40,
-    backgroundColor: '#fff',
+    flex: 1, // Take up the full screen
+    alignItems: 'center', // Center items horizontally
+    paddingTop: 40, // Add padding at the top
+    backgroundColor: '#fff', // Set the background color to white
   },
   pageTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 24,
-    textAlign: 'center',
+    fontSize: 24, // Set font size for the page title
+    fontWeight: 'bold', // Make the page title bold
+    marginTop: 24, // Add space above the page title
+    textAlign: 'center', // Center-align the page title
   },
   name: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    marginBottom: 8,
+    fontSize: 26, // Set font size for the user name
+    fontWeight: 'bold', // Make the user name bold
+    marginBottom: 8, // Add space below the user name
   },
   bio: {
-    fontSize: 16,
-    color: '#555',
+    fontSize: 16, // Set font size for the user bio
+    color: '#555', // Set text color for the bio
   },
   break: {
-    height: 24,
+    height: 24, // Add vertical space between elements
   },
   usersContainer: {
-    width: '90%',
-    alignItems: 'flex-start',
+    width: '90%', // Set the width of the container
+    alignItems: 'flex-start', // Align items to the start of the container
   },
   userBox: {
-    width: '100%',
-    backgroundColor: '#f2f2f2',
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 16,
-    alignItems: 'flex-start',
-    // shadowColor: '#000',
-    // shadowOpacity: 0.05,
-    // shadowRadius: 2,
-    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', 
-    elevation: 2,
+    width: '100%', // Take up the full width of the container
+    backgroundColor: '#f2f2f2', // Set the background color for the user box
+    borderRadius: 8, // Round the corners of the user box
+    padding: 16, // Add padding inside the user box
+    marginBottom: 16, // Add space below each user box
+    alignItems: 'flex-start', // Align items to the start of the user box
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', // Add shadow for web compatibility
+    elevation: 2, // Add shadow for Android
   },
 });
 
-export default Page1;
+export default Page1; // Export the Page1 component as default

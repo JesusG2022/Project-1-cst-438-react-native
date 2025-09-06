@@ -2,41 +2,36 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Title from '../components/Title';
+import Navbar from '../components/Navbar';
 
 const WordOftheDay: React.FC = () => {
   const [wordOfTheDay, setWordOfTheDay] = useState('');
   const [wordOfTheDayDefinition, setWordOfTheDayDefinition] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  
   const getPSTDate = () => {
     const now = new Date();
-    // Convert to PST 
-    return new Date(now.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
+    return new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
   };
 
-  // Get today's date in YYYY-MM-DD format
   const getTodayString = () => {
     const pstDate = getPSTDate();
     return pstDate.toISOString().split('T')[0];
   };
 
-  // Format date for display  (ex: January 1, 2024)
   const formatDateForDisplay = () => {
     const pstDate = getPSTDate();
     const months = [
       'January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
     ];
-    
     const day = pstDate.getDate();
     const month = months[pstDate.getMonth()];
     const year = pstDate.getFullYear();
-    
     return `${month} ${day}, ${year}`;
   };
 
-  // Get random word from API
   const getRandomWord = async () => {
     try {
       const response = await fetch('https://random-word-api.vercel.app/api?words=1');
@@ -44,25 +39,22 @@ const WordOftheDay: React.FC = () => {
       return data[0];
     } catch (error) {
       console.error('Error getting random word:', error);
-      return 'serendipity'; // fallback word
+      return 'serendipity';
     }
   };
 
-  // Initialize word of the day
   const initializeWordOfTheDay = async () => {
     try {
-      const today = getTodayString(); 
+      const today = getTodayString();
       const storedDate = await AsyncStorage.getItem('wordOfTheDayDate');
       const storedWord = await AsyncStorage.getItem('wordOfTheDay');
-      
+
       if (storedDate !== today || !storedWord) {
-        // new word for today
         const newWord = await getRandomWord();
         await AsyncStorage.setItem('wordOfTheDay', newWord);
         await AsyncStorage.setItem('wordOfTheDayDate', today);
         setWordOfTheDay(newWord);
       } else {
-        // Use stored word
         setWordOfTheDay(storedWord);
       }
     } catch (error) {
@@ -71,14 +63,11 @@ const WordOftheDay: React.FC = () => {
     }
   };
 
-  // Fetch definition for word of the day
   const fetchWordOfTheDayDefinition = async (wordToDefine: string) => {
     try {
       setWordOfTheDayDefinition('Loading...');
-
       const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordToDefine.toLowerCase().trim()}`);
       if (!res.ok) throw new Error('Could not fetch resource');
-
       const data = await res.json();
       const def = data?.[0]?.meanings?.[0]?.definitions?.[0]?.definition ?? 'No definition found';
       setWordOfTheDayDefinition(def);
@@ -88,8 +77,6 @@ const WordOftheDay: React.FC = () => {
     }
   };
 
-
-  // Initialize component
   useEffect(() => {
     const initialize = async () => {
       await initializeWordOfTheDay();
@@ -98,18 +85,17 @@ const WordOftheDay: React.FC = () => {
     initialize();
   }, []);
 
-  // Fetch definition when word of the day changes
   useEffect(() => {
     if (wordOfTheDay) {
       fetchWordOfTheDayDefinition(wordOfTheDay);
     }
   }, [wordOfTheDay]);
 
-
   return (
     <View style={styles.container}>
+      <Title />
+      <Navbar />
       <Text style={styles.title}>Word of the Day</Text>
-      
       {isLoading ? (
         <View style={styles.loadingContainer}>
           <Text style={styles.loading}>Loading today's word...</Text>
