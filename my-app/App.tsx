@@ -22,7 +22,7 @@ export type RootStackParamList = {
   SignUp: undefined; // No parameters for the SignUp screen
   Home: { userId: string }; // Home screen expects a userId parameter
   Page1: undefined; // No parameters for Page1
-  Page2: undefined; // No parameters for Page2
+  Page2: { username: string }; // Username to show their posts
   WordOftheDay: undefined; // No parameters for WordOftheDay
 };
 

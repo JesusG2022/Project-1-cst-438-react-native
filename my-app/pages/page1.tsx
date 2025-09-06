@@ -49,7 +49,7 @@ const Page1 = () => {
         {users.map((user, idx) => (
           <View key={idx} style={styles.userBox}>
             {/* Navigate to Page2 when the user name is clicked */}
-            <TouchableOpacity onPress={() => navigation.navigate('Page2')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Page2', { username: user.Username })}>
               <Text style={[styles.name, { textDecorationLine: 'underline' }]}>{user.Username}</Text>
             </TouchableOpacity>
             {/* Display the user's bio */}
