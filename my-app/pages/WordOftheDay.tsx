@@ -5,9 +5,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Title from '../components/Title';
 import Navbar from '../components/Navbar';
 
+// useState tool used to create state variables - information the component needs to remember
+
 const WordOftheDay: React.FC = () => {
   const [wordOfTheDay, setWordOfTheDay] = useState('');
-  const [wordOfTheDayDefinition, setWordOfTheDayDefinition] = useState('');
+  const [wordDetails, setWordDetails] = useState<any | null>(null);  // Park - Added this and removed the wordOftheDayDefinition state 
+  // const [wordOfTheDayDefinition, setWordOfTheDayDefinition] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   const getPSTDate = () => {
@@ -63,18 +66,37 @@ const WordOftheDay: React.FC = () => {
     }
   };
 
-  const fetchWordOfTheDayDefinition = async (wordToDefine: string) => {
+  // const fetchWordOfTheDayDefinition = async (wordToDefine: string) => {
+  //   try {
+  //     setWordOfTheDayDefinition('Loading...');
+  //     const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordToDefine.toLowerCase().trim()}`);
+  //     if (!res.ok) throw new Error('Could not fetch resource');
+  //     const data = await res.json();
+  //     const def = data?.[0]?.meanings?.[0]?.definitions?.[0]?.definition ?? 'No definition found';
+  //     setWordOfTheDayDefinition(def);
+  //   } catch (e) {
+  //     console.error(e);
+  //     setWordOfTheDayDefinition('Definition not available');
+  //   }
+  // };
+
+  const fetchWordDetails = async (wordToDefine: string) => {
     try {
-      setWordOfTheDayDefinition('Loading...');
       const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordToDefine.toLowerCase().trim()}`);
       if (!res.ok) throw new Error('Could not fetch resource');
-      const data = await res.json();
-      const def = data?.[0]?.meanings?.[0]?.definitions?.[0]?.definition ?? 'No definition found';
-      setWordOfTheDayDefinition(def);
+            const data = await res.json();
+
+      // Put the details into an object
+      setWordDetails(data[0]);
     } catch (e) {
       console.error(e);
-      setWordOfTheDayDefinition('Definition not available');
+      setWordDetails(null); // sets to null if error
     }
+
+
+    
+
+
   };
 
   useEffect(() => {
@@ -87,7 +109,7 @@ const WordOftheDay: React.FC = () => {
 
   useEffect(() => {
     if (wordOfTheDay) {
-      fetchWordOfTheDayDefinition(wordOfTheDay);
+      fetchWordDetails(wordOfTheDay); // changed to fetchWordDetails instead of fetchWordOfTheDayDefinition
     }
   }, [wordOfTheDay]);
 
@@ -101,15 +123,27 @@ const WordOftheDay: React.FC = () => {
           <Text style={styles.loading}>Loading today's word...</Text>
         </View>
       ) : (
-        <View style={styles.wordOfTheDayContainer}>
+       <View style={styles.wordOfTheDayContainer}>
           <Text style={styles.date}>{formatDateForDisplay()}</Text>
           <Text style={styles.wordOfTheDay}>{wordOfTheDay}</Text>
-          <View style={styles.definitionContainer}>
-            <Text style={styles.definitionLabel}>Definition:</Text>
-            <ScrollView style={styles.definitionScroll}>
-              <Text style={styles.definition}>{wordOfTheDayDefinition}</Text>
-            </ScrollView>
-          </View>
+          <ScrollView style={styles.detailsScroll}>
+            {wordDetails && wordDetails.meanings.map((meaning: any, index: number) => (
+              <View key={index} style={styles.meaningContainer}>
+                <Text style={styles.partOfSpeech}>{meaning.partOfSpeech}</Text>
+                {meaning.definitions.map((def: any, defIndex: number) => (
+                  <View key={defIndex} style={styles.definitionBlock}>
+                    <Text style={styles.definition}>- {def.definition}</Text>
+                    {def.example && (
+                      <Text style={styles.example}>Example: "{def.example}"</Text>
+                    )}
+                    {def.synonyms && def.synonyms.length > 0 && (
+                      <Text style={styles.synonyms}>Synonyms: {def.synonyms.join(', ')}</Text>
+                    )}
+                  </View>
+                ))}
+              </View>
+            ))}
+          </ScrollView>
         </View>
       )}
     </View>
@@ -171,28 +205,39 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
     letterSpacing: 1
   },
-  definitionContainer: {
+ detailsScroll: {
     width: '100%',
-    backgroundColor: '#ffffff',
-    padding: 20,
-    borderRadius: 8,
-    borderLeftWidth: 4,
-    borderLeftColor: '#e74c3c'
+    maxHeight: 250, // not sure if this is fine, feel free to change tho
   },
-  definitionLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#495057',
+  meaningContainer: {
+    width: '100%',
+    marginBottom: 20,
+  },
+  partOfSpeech: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#2980b9',
     marginBottom: 10,
-    textAlign: 'center'
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    paddingBottom: 5,
   },
-  definitionScroll: {
-    maxHeight: 150
+  definitionBlock: {
+    marginBottom: 15,
   },
-  definition: { 
-    fontSize: 18,
-    lineHeight: 26,
-    color: '#2c3e50',
-    textAlign: 'center'
+  definition: {
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  example: {
+    fontSize: 15,
+    fontStyle: 'italic',
+    color: '#555',
+    marginTop: 5,
+  },
+  synonyms: {
+    fontSize: 15,
+    color: '#3498db',
+    marginTop: 5,
   }
 });
