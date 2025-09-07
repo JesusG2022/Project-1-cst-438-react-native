@@ -89,5 +89,35 @@ export const addUser = async (username: string, password: string, email: string,
   }
 };
 
+// Function to fetch users
+export const getAllUsers = async () => {
+  try {
+    const db = await dbPromise;
+    const result = await db.getAllAsync('SELECT Username, Bio FROM User13');
+    return result; // Array of { Username, Bio }
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return [];
+  }
+};
+// Function to get a post by username
+export const getPostsByUsername = async (username: string) => {
+  try {
+    const db = await dbPromise;
+    // Get the user's ID
+    const user = await db.getFirstAsync<{ UserId: number }>('SELECT UserId FROM User13 WHERE Username = ?', [username]);
+    if (!user || typeof user.UserId !== 'number') return [];
+    // Get posts for that user
+    const posts = await db.getAllAsync(
+      'SELECT Date, text_quote FROM Posts13 WHERE UserId = ?',
+      [user.UserId]
+    );
+    return posts; // Array of { Date, text_quote }
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return [];
+  }
+};
+
 // Call the function to initialize the database when the module is loaded
 initializeDatabase();
