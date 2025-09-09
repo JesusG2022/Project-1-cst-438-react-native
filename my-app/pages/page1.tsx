@@ -14,7 +14,7 @@ type RootStackParamList = {
   SignUp: undefined; // No parameters for the SignUp screen
   Home: undefined; // No parameters for the Home screen
   Page1: undefined; // No parameters for Page1
-  Page2: undefined; // No parameters for Page2
+  Page2: { username: string }; // Page2 expects a username parameter
   WordOftheDay: undefined; // No parameters for WordOftheDay
 };
 
@@ -37,22 +37,16 @@ const Page1 = () => {
 
   return (
     <View style={styles.container}>
-      {/* Display the title of the app */}
       <Title />
-      {/* Display the navigation bar */}
       <Navbar />
-      {/* Display the page title */}
       <Text style={styles.pageTitle}>User Profiles</Text>
-      <View style={styles.break} /> {/* Spacer */}
+      <View style={styles.break} />
       <View style={styles.usersContainer}>
-        {/* Render a list of user profiles */}
         {users.map((user, idx) => (
           <View key={idx} style={styles.userBox}>
-            {/* Navigate to Page2 when the user name is clicked */}
             <TouchableOpacity onPress={() => navigation.navigate('Page2', { username: user.Username })}>
               <Text style={[styles.name, { textDecorationLine: 'underline' }]}>{user.Username}</Text>
             </TouchableOpacity>
-            {/* Display the user's bio */}
             <Text style={styles.bio}>{user.Bio}</Text>
           </View>
         ))}

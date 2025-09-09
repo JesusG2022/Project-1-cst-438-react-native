@@ -28,7 +28,7 @@ const SignIn = () => {
 
       // Query the database to check if the username and password match
       const row = await db.getFirstAsync<{ UserId: number }>(
-        `SELECT UserId FROM User13 WHERE Username = ? AND Password = ?`,
+        `SELECT UserId FROM User15 WHERE Username = ? AND Password = ?`,
         [username, password]
       );
 
@@ -49,10 +49,8 @@ const SignIn = () => {
 
   return (
     <View style={styles.container}>
-      {/* Page title */}
       <Text style={styles.title}>Sign In</Text>
       <View style={styles.inputContainer}>
-        {/* Input field for username */}
         <TextInput
           style={styles.input}
           placeholder="Username"
@@ -60,7 +58,6 @@ const SignIn = () => {
           onChangeText={setUsername}
           autoCapitalize="none" // Disable auto-capitalization
         />
-        {/* Input field for password */}
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -68,13 +65,10 @@ const SignIn = () => {
           onChangeText={setPassword}
           secureTextEntry // Hide password input
         />
-        {/* Sign In button */}
         <Button title="Sign In" onPress={handleSignIn} />
-        <View style={{ height: 20 }} /> {/* Spacer */}
-        {/* Back button to navigate to the Start screen */}
+        <View style={{ height: 20 }} /> 
         <Button title="Back" onPress={() => navigation.navigate('Start')} />
-        <View style={{ height: 20 }} /> {/* Spacer */}
-        {/* Display error message if any */}
+        <View style={{ height: 20 }} /> 
         {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
       </View>
     </View>

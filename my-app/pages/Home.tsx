@@ -19,13 +19,9 @@ const Home: React.FC<HomeProps> = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      {/* Display the title of the app */}
       <Title />
-      {/* Display the navigation bar */}
       <Navbar />
-      {/* Display the page title */}
       <Text style={styles.pageTitle}>Home Page</Text>
-      {/* Display a welcome message */}
       <Text style={styles.textAll}>Welcome to the home page!</Text>
     </View>
   );

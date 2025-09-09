@@ -10,6 +10,8 @@ import Page1 from './pages/page1'; // Page1 component
 import Page2 from './pages/page2'; // Page2 component
 import WordOftheDay from './pages/WordOftheDay'; // Word of the Day page component
 import './database/database'; // Initializes the database
+import SearchPost from './pages/SeachPost';
+import SearchResult from './pages/SeachResult';
 import { StackScreenProps } from '@react-navigation/stack'; // Type for stack screen props
 
 // Define the type for the Home screen props
@@ -24,6 +26,8 @@ export type RootStackParamList = {
   Page1: undefined; // No parameters for Page1
   Page2: { username: string }; // Username to show their posts
   WordOftheDay: undefined; // No parameters for WordOftheDay
+  SearchPost: undefined; // No parameters for SearchPost
+  SearchResult: { query: string }; // SearchResult expects a query parameter
 };
 
 // Create the stack navigator
@@ -46,6 +50,9 @@ export default function App() {
         <Stack.Screen name="Page1" component={Page1} />
         <Stack.Screen name="Page2" component={Page2} />
         <Stack.Screen name="WordOftheDay" component={WordOftheDay} />
+        <Stack.Screen name="SearchPost" component={SearchPost} />
+        <Stack.Screen name="SearchResult" component={SearchResult} />
+
       </Stack.Navigator>
       {/* Status bar for the app */}
       <StatusBar style="auto" />

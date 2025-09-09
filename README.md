@@ -7,4 +7,6 @@ This is a CST 438 project about creating a blog with a word of the day using an 
 Start by typing in the terminal
 
 * npm i
+* npm install react-native @types/react-native
+* npm install expo-sqlite
 * npm start (and choose what device you want it).

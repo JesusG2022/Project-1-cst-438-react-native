@@ -36,10 +36,8 @@ const SignUp = () => {
 
   return (
     <View style={styles.container}>
-      {/* Page title */}
       <Text style={styles.title}>Sign Up</Text>
       <View style={styles.inputContainer}>
-        {/* Input field for username */}
         <TextInput
           style={styles.input}
           placeholder="Username"
@@ -47,7 +45,6 @@ const SignUp = () => {
           onChangeText={setUsername}
           autoCapitalize="none" // Disable auto-capitalization
         />
-        {/* Input field for password */}
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -55,7 +52,6 @@ const SignUp = () => {
           onChangeText={setPassword}
           secureTextEntry // Hide password input
         />
-        {/* Input field for email */}
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -71,10 +67,8 @@ const SignUp = () => {
           onChangeText={setBio}
           multiline // Allow multiple lines for bio
         />
-        {/* Sign Up button */}
         <Button title="Sign Up" onPress={handleSignUp} />
         <View style={{ height: 20 }} /> {/* Spacer */}
-        {/* Back button */}
         <Button title="Back" onPress={() => navigation.navigate('Start')} />
         <View style={{ height: 20 }} /> {/* Spacer */}
       </View>
