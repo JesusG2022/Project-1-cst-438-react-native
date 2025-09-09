@@ -36,9 +36,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 export default function App() {
   return (
     <NavigationContainer>
-      {/* Stack Navigator to manage screen transitions */}
       <Stack.Navigator initialRouteName="Start" screenOptions={{ headerShown: false }}>
-        {/* Define each screen in the stack */}
         <Stack.Screen name="Start" component={Start} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -54,7 +52,6 @@ export default function App() {
         <Stack.Screen name="SearchResult" component={SearchResult} />
 
       </Stack.Navigator>
-      {/* Status bar for the app */}
       <StatusBar style="auto" />
     </NavigationContainer>
   );

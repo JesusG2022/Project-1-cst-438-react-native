@@ -59,7 +59,6 @@ const SignUp = () => {
           onChangeText={setEmail}
           keyboardType="email-address" // Use email keyboard layout
         />
-        {/* Input field for bio */}
         <TextInput
           style={[styles.input, styles.bioInput]} // Additional styling for bio input
           placeholder="Bio"
@@ -68,9 +67,9 @@ const SignUp = () => {
           multiline // Allow multiple lines for bio
         />
         <Button title="Sign Up" onPress={handleSignUp} />
-        <View style={{ height: 20 }} /> {/* Spacer */}
+        <View style={{ height: 20 }} /> 
         <Button title="Back" onPress={() => navigation.navigate('Start')} />
-        <View style={{ height: 20 }} /> {/* Spacer */}
+        <View style={{ height: 20 }} /> 
       </View>
     </View>
   );
