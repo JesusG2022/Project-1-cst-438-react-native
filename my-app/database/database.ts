@@ -119,5 +119,20 @@ export const getPostsByUsername = async (username: string) => {
   }
 };
 
+
+export const searchPosts = async (query: string) => {
+  try {
+    const db = await dbPromise;
+    const posts = await db.getAllAsync(
+      `SELECT Date, text_quote FROM Posts15 WHERE text_quote LIKE ?`,
+      [`%${query}%`] // Use % for wildcard matching
+    );
+    return posts; // Array of { Date, text_quote }
+  } catch (error) {
+    console.error('Error searching posts:', error);
+    return [];
+  }
+};
+
 // Call the function to initialize the database when the module is loaded
 initializeDatabase();
