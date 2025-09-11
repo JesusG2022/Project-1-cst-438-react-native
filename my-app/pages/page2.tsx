@@ -9,12 +9,27 @@ import { getPostsByUsername } from '../database/database';
 const Page2 = () => {
   const route = useRoute();
   const { username } = route.params as { username: string };
-  const [posts, setPosts] = useState<{ Date: string; text_quote: string }[]>([]);
+  const [posts, setPosts] = useState<{ PostId: number; Date: string; Title: string; text_quote: string }[]>([]); // Add title and post id
+
+  // Function to format date from YYYY-MM-DD to "Month Day, Year" format
+  const formatDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return dateString; // Return original string if formatting fails
+    }
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
       const dbPosts = await getPostsByUsername(username);
-      setPosts(dbPosts as { Date: string; text_quote: string }[]);
+      setPosts(dbPosts as { PostId: number; Date: string; Title: string; text_quote: string }[]); // Add title and post id
     };
     fetchPosts();
   }, [username]);
@@ -35,10 +50,11 @@ const Page2 = () => {
           </Text>
         )}
         {posts.map((post, idx) => (
-          <View key={idx} style={styles.postBox}>
+          // Add post id to the key
+          <View key={post.PostId} style={styles.postBox}>
             <View style={styles.postHeader}>
-              <Text style={styles.postTitle}>Post #{idx + 1}</Text>
-              <Text style={styles.postDate}>{post.Date}</Text>
+              <Text style={styles.postTitle}>{post.Title || `Post #${idx + 1}`}</Text>
+              <Text style={styles.postDate}>{formatDate(post.Date)}</Text> // format date
             </View>
             <Text style={styles.postContent}>{post.text_quote}</Text>
           </View>
