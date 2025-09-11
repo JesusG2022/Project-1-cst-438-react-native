@@ -21,6 +21,7 @@ const initializeDatabase = async () => {
 
     // Create the Posts table if it does not already exist
     await db.execAsync(`
+
       CREATE TABLE IF NOT EXISTS Posts15 (
         PostId INTEGER PRIMARY KEY, -- Primary key for posts
         UserId INTEGER, -- Foreign key referencing User15 table
@@ -30,7 +31,16 @@ const initializeDatabase = async () => {
       )
     `);
 
-    // Insert predefined users into the User15 table
+    // Add Title column if it doesn't exist (for existing databases)
+    try {
+      await db.execAsync(`ALTER TABLE Posts15 ADD COLUMN Title VARCHAR(255)`);
+      console.log('Title column added to Posts15 table');
+    } catch (error) {
+      // Column might already exist
+      console.log('Title column already exists or error adding it:', error);
+    }
+
+
     const users = [
       { Username: 'jesus', Password: 'password1', Email: 'jesus@example.com', Bio: 'Bio for Jesus' },
       { Username: 'roy', Password: 'password2', Email: 'roy@example.com', Bio: 'Bio for Roy' },
@@ -50,24 +60,47 @@ const initializeDatabase = async () => {
       }
     }
 
-    // Insert predefined posts into the Posts15 table
-    const posts = [
-      { UserId: 1, Date: '2025-09-05', text_quote: 'This is a post by Jesus.' },
-      { UserId: 2, Date: '2025-09-05', text_quote: 'This is a post by Roy.' },
-      { UserId: 3, Date: '2025-09-05', text_quote: 'This is a post by Justin.' },
-      { UserId: 4, Date: '2025-09-05', text_quote: 'This is a post by Shannyn.' }
-    ];
+    // Check if posts already exist and update them with titles if needed
+    try {
+      const existingPosts = await db.getAllAsync('SELECT PostId, UserId, text_quote FROM Posts15 WHERE Title IS NULL OR Title = ""');
+      
+      if (existingPosts.length > 0) {
+        // Update existing posts with titles
+        for (const post of existingPosts) {
+          const postData = post as { PostId: number; UserId: number; text_quote: string };
+          const titles = ['First Post', 'My Post', 'Thoughts', 'Update', 'News'];
+          const randomTitle = titles[postData.UserId % titles.length] || 'My Post';
+          await db.runAsync(
+            `UPDATE Posts13 SET Title = ? WHERE PostId = ?`,
+            [`User ${postData.UserId}'s ${randomTitle}`, postData.PostId]
+          );
+        }
+        console.log('Updated existing posts with titles');
+      } else {
+        // Insert predefined posts into the Posts13 table
+        const posts = [
+          { UserId: 1, Date: '2025-09-05', Title: 'Jesus\' First Post', text_quote: 'This is a post by Jesus.' },
+          { UserId: 2, Date: '2025-09-05', Title: 'Roy\'s First Post', text_quote: 'This is a post by Roy.' },
+          { UserId: 3, Date: '2025-09-05', Title: 'Justin\'s First Post', text_quote: 'This is a post by Justin.' },
+          { UserId: 4, Date: '2025-09-05', Title: 'Shannyn\'s First Post', text_quote: 'This is a post by Shannyn.' }
+        ];
 
-    for (const post of posts) {
-      try {
-        // Insert each post into the Posts15 table
-        await db.runAsync(
-          `INSERT INTO Posts15 (UserId, Date, text_quote) VALUES (?, ?, ?)`,
-          [post.UserId, post.Date, post.text_quote]
-        );
-      } catch (error) {
-        console.error('Error inserting post:', post, error); // Log any errors during insertion
+        for (const post of posts) {
+          try {
+            // Insert each post into the Posts13 table
+            await db.runAsync(
+              `INSERT INTO Posts15 (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
+              [post.UserId, post.Date, post.Title, post.text_quote]
+            );
+          } catch (error) {
+            console.error('Error inserting post:', post, error); // Log any errors during insertion
+          }
+        }
+        console.log('Inserted predefined posts');
+
       }
+    } catch (error) {
+      console.error('Error handling posts:', error);
     }
   } catch (error) {
     console.error('Error initializing database:', error); // Log any errors during database initialization
@@ -109,16 +142,48 @@ export const getPostsByUsername = async (username: string) => {
     if (!user || typeof user.UserId !== 'number') return [];
     // Get posts for that user
     const posts = await db.getAllAsync(
-      'SELECT Date, text_quote FROM Posts15 WHERE UserId = ?',
+      'SELECT PostId, Date, Title, text_quote FROM Posts15 WHERE UserId = ? ORDER BY PostId DESC', // order posts by post id
+
       [user.UserId]
     );
-    return posts; // Array of { Date, text_quote }
+    return posts; // Array of { PostId, Date, Title, text_quote }
   } catch (error) {
     console.error('Error fetching posts:', error);
     return [];
   }
 };
 
+// Function to add a new post (poem)
+export const addPost = async (userId: number, title: string, content: string) => {
+  try {
+    const db = await dbPromise;
+    // Get current date in PST timezone specifically
+    const now = new Date();
+    const pstDate = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+    const currentDate = `${pstDate.getFullYear()}-${String(pstDate.getMonth() + 1).padStart(2, '0')}-${String(pstDate.getDate()).padStart(2, '0')}`;
+    
+    const result = await db.runAsync(
+      `INSERT INTO Posts13 (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
+      [userId, currentDate, title, content]
+    );
+    return result;
+  } catch (error) {
+    console.error('Error adding post:', error);
+    throw error;
+  }
+};
+
+// Function to get all posts for a user
+export const getPostsByUserId = async (userId: number) => {
+  try {
+    const db = await dbPromise;
+    const posts = await db.getAllAsync(
+      'SELECT PostId, Date, Title, text_quote FROM Posts13 WHERE UserId = ? ORDER BY PostId DESC',
+      [userId]
+    );
+    return posts; // Array of { PostId, Date, Title, text_quote }
+  } catch (error) {
+    console.error('Error fetching posts:', error);
 
 export const searchPosts = async (query: string) => {
   try {
@@ -133,6 +198,46 @@ export const searchPosts = async (query: string) => {
     return [];
   }
 };
+
+// Function to update a post
+export const updatePost = async (postId: number, title: string, content: string) => {
+  try {
+    const db = await dbPromise;
+    await db.runAsync(
+      `UPDATE Posts13 SET Title = ?, text_quote = ? WHERE PostId = ?`,
+      [title, content, postId]
+    );
+  } catch (error) {
+    console.error('Error updating post:', error);
+    throw error;
+  }
+};
+
+// Function to delete a post
+export const deletePost = async (postId: number) => {
+  try {
+    const db = await dbPromise;
+    const result = await db.runAsync('DELETE FROM Posts13 WHERE PostId = ?', [postId]);
+    return result;
+  } catch (error) {
+    console.error('Error deleting post:', error);
+    throw error;
+  }
+};
+
+// Function to get user ID by username
+export const getUserIdByUsername = async (username: string) => {
+  try {
+    const db = await dbPromise;
+    const user = await db.getFirstAsync<{ UserId: number }>('SELECT UserId FROM User13 WHERE Username = ?', [username]);
+    return user ? user.UserId : null;
+  } catch (error) {
+    console.error('Error getting user ID:', error);
+    return null;
+  }
+};
+
+
 
 // Call the function to initialize the database when the module is loaded
 initializeDatabase();

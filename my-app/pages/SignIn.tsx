@@ -3,17 +3,13 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native'; // Imp
 import { useNavigation } from '@react-navigation/native'; // Import navigation hook for screen navigation
 import type { StackNavigationProp } from '@react-navigation/stack'; // Import type for navigation props
 import * as SQLite from 'expo-sqlite'; // Import SQLite module for database operations
-
-// Define the parameter list for the stack navigator
-type RootStackParamList = {
-  Home: { userId: number }; // Home screen expects a userId parameter
-  Start: undefined; // No parameters for the Start screen
-  SignUp: undefined; // No parameters for the SignUp screen
-};
+import { useUser } from '../contexts/UserContext'; // Import user context for authentication
+import { RootStackParamList } from '../App'; // Import shared type definition
 
 // SignIn component: Allows users to log in to their account
 const SignIn = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>(); // Hook to access navigation object
+  const { login } = useUser(); // Get login function from user context for authentication
 
   // State variables to store user input and error messages
   const [username, setUsername] = useState(''); // State for username
@@ -35,7 +31,8 @@ const SignIn = () => {
       if (row && row.UserId) {
         // If a matching user is found, navigate to the Home screen
         setErrorMessage(''); // Clear any error messages
-        navigation.navigate('Home', { userId: row.UserId }); // Pass the userId to the Home screen
+        await login(username); // Set the current user in context for authentication
+        navigation.navigate('Home', { userId: row.UserId.toString() }); // Pass the userId to the Home screen
       } else {
         // If no matching user is found, display an error message
         setErrorMessage('Wrong username or password');
