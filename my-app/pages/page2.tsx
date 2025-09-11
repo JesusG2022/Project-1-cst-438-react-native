@@ -36,11 +36,8 @@ const Page2 = () => {
 
   return (
     <View style={styles.container}>
-      {/* Display the title of the app */}
       <Title />
-      {/* Display the navigation bar */}
       <Navbar />
-      {/* Display the page title */}
       <Text style={styles.pageTitle}>{username}'s Posts</Text>
     <View style={styles.break} />
       <ScrollView style={styles.postsContainer}>

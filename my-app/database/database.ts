@@ -10,7 +10,7 @@ const initializeDatabase = async () => {
 
     // Create the User table if it does not already exist
     await db.execAsync(`
-      CREATE TABLE IF NOT EXISTS User13 (
+      CREATE TABLE IF NOT EXISTS User15 (
         UserId INTEGER PRIMARY KEY AUTOINCREMENT, -- Auto-incrementing primary key
         Username VARCHAR(225) UNIQUE, -- Unique username
         Password VARCHAR(225) UNIQUE, -- Unique password
@@ -21,26 +21,26 @@ const initializeDatabase = async () => {
 
     // Create the Posts table if it does not already exist
     await db.execAsync(`
-      CREATE TABLE IF NOT EXISTS Posts13 (
-        PostId INTEGER PRIMARY KEY AUTOINCREMENT, -- Primary key for posts
-        UserId INTEGER, -- Foreign key referencing User13 table
+
+      CREATE TABLE IF NOT EXISTS Posts15 (
+        PostId INTEGER PRIMARY KEY, -- Primary key for posts
+        UserId INTEGER, -- Foreign key referencing User15 table
         Date DATE, -- Date of the post
         text_quote VARCHAR(1000), -- Content of the post
-        FOREIGN KEY (UserId) REFERENCES User13(UserId) -- Establish relationship with User13 table
+        FOREIGN KEY (UserId) REFERENCES User15(UserId) -- Establish relationship with User15 table
       )
     `);
 
     // Add Title column if it doesn't exist (for existing databases)
     try {
-      await db.execAsync(`ALTER TABLE Posts13 ADD COLUMN Title VARCHAR(255)`);
-      console.log('Title column added to Posts13 table');
+      await db.execAsync(`ALTER TABLE Posts15 ADD COLUMN Title VARCHAR(255)`);
+      console.log('Title column added to Posts15 table');
     } catch (error) {
       // Column might already exist
       console.log('Title column already exists or error adding it:', error);
     }
 
 
-    // Insert predefined users into the User13 table
     const users = [
       { Username: 'jesus', Password: 'password1', Email: 'jesus@example.com', Bio: 'Bio for Jesus' },
       { Username: 'roy', Password: 'password2', Email: 'roy@example.com', Bio: 'Bio for Roy' },
@@ -50,9 +50,9 @@ const initializeDatabase = async () => {
 
     for (const user of users) {
       try {
-        // Insert each user into the User13 table
+        // Insert each user into the User15 table
         await db.runAsync(
-          `INSERT INTO User13 (Username, Password, Email, Bio) VALUES (?, ?, ?, ?)`,
+          `INSERT INTO User15 (Username, Password, Email, Bio) VALUES (?, ?, ?, ?)`,
           [user.Username, user.Password, user.Email, user.Bio]
         );
       } catch (error) {
@@ -62,7 +62,7 @@ const initializeDatabase = async () => {
 
     // Check if posts already exist and update them with titles if needed
     try {
-      const existingPosts = await db.getAllAsync('SELECT PostId, UserId, text_quote FROM Posts13 WHERE Title IS NULL OR Title = ""');
+      const existingPosts = await db.getAllAsync('SELECT PostId, UserId, text_quote FROM Posts15 WHERE Title IS NULL OR Title = ""');
       
       if (existingPosts.length > 0) {
         // Update existing posts with titles
@@ -89,7 +89,7 @@ const initializeDatabase = async () => {
           try {
             // Insert each post into the Posts13 table
             await db.runAsync(
-              `INSERT INTO Posts13 (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
+              `INSERT INTO Posts15 (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
               [post.UserId, post.Date, post.Title, post.text_quote]
             );
           } catch (error) {
@@ -97,6 +97,7 @@ const initializeDatabase = async () => {
           }
         }
         console.log('Inserted predefined posts');
+
       }
     } catch (error) {
       console.error('Error handling posts:', error);
@@ -106,12 +107,12 @@ const initializeDatabase = async () => {
   }
 };
 
-// Function to add a new user to the User13 table
+// Function to add a new user to the User15 table
 export const addUser = async (username: string, password: string, email: string, bio: string) => {
   try {
     const db = await dbPromise; // Wait for the database connection to be established
     await db.runAsync(
-      `INSERT INTO User13 (Username, Password, Email, Bio) VALUES (?, ?, ?, ?)`,
+      `INSERT INTO User15 (Username, Password, Email, Bio) VALUES (?, ?, ?, ?)`,
       [username, password, email, bio] // Insert user details into the table
     );
     console.log('User added successfully'); // Log success message
@@ -125,7 +126,7 @@ export const addUser = async (username: string, password: string, email: string,
 export const getAllUsers = async () => {
   try {
     const db = await dbPromise;
-    const result = await db.getAllAsync('SELECT Username, Bio FROM User13');
+    const result = await db.getAllAsync('SELECT Username, Bio FROM User15');
     return result; // Array of { Username, Bio }
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -137,11 +138,12 @@ export const getPostsByUsername = async (username: string) => {
   try {
     const db = await dbPromise;
     // Get the user's ID
-    const user = await db.getFirstAsync<{ UserId: number }>('SELECT UserId FROM User13 WHERE Username = ?', [username]);
+    const user = await db.getFirstAsync<{ UserId: number }>('SELECT UserId FROM User15 WHERE Username = ?', [username]);
     if (!user || typeof user.UserId !== 'number') return [];
     // Get posts for that user
     const posts = await db.getAllAsync(
-      'SELECT PostId, Date, Title, text_quote FROM Posts13 WHERE UserId = ? ORDER BY PostId DESC', // order posts by post id
+      'SELECT PostId, Date, Title, text_quote FROM Posts15 WHERE UserId = ? ORDER BY PostId DESC', // order posts by post id
+
       [user.UserId]
     );
     return posts; // Array of { PostId, Date, Title, text_quote }
@@ -182,6 +184,17 @@ export const getPostsByUserId = async (userId: number) => {
     return posts; // Array of { PostId, Date, Title, text_quote }
   } catch (error) {
     console.error('Error fetching posts:', error);
+
+export const searchPosts = async (query: string) => {
+  try {
+    const db = await dbPromise;
+    const posts = await db.getAllAsync(
+      `SELECT Date, text_quote FROM Posts15 WHERE text_quote LIKE ?`,
+      [`%${query}%`] // Use % for wildcard matching
+    );
+    return posts; // Array of { Date, text_quote }
+  } catch (error) {
+    console.error('Error searching posts:', error);
     return [];
   }
 };
@@ -223,6 +236,7 @@ export const getUserIdByUsername = async (username: string) => {
     return null;
   }
 };
+
 
 
 // Call the function to initialize the database when the module is loaded

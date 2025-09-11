@@ -25,15 +25,15 @@ const Start = () => {
     navigation.navigate('SignUp'); // Navigate to the SignUp screen
     console.log('Sign Up button clicked'); // Log the button click
   };
-
+/* Display the title of the app */
+/* Button to navigate to the SignIn screen */
+/* Spacer between buttons */
+/* Button to navigate to the SignUp screen */
   return (
     <View style={styles.container}>
-      {/* Display the title of the app */}
       <Title />
-      {/* Button to navigate to the SignIn screen */}
       <Button title="Sign In" onPress={handleSignIn} />
-      <View style={{ height: 20 }} /> {/* Spacer between buttons */}
-      {/* Button to navigate to the SignUp screen */}
+      <View style={{ height: 20 }} />    
       <Button title="Sign Up" onPress={handleSignUp} />
     </View>
   );

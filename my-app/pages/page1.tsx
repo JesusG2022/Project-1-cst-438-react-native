@@ -8,6 +8,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'; // I
 import { getAllUsers } from '../database/database';
 import { RootStackParamList } from '../App'; // Import the shared type definition (replaces local type definition)
 
+
+
 // Define the type for the Page1 screen navigation prop
 type Page1ScreenProp = NativeStackNavigationProp<RootStackParamList, 'Page1'>;
 
@@ -27,22 +29,16 @@ const Page1 = () => {
 
   return (
     <View style={styles.container}>
-      {/* Display the title of the app */}
       <Title />
-      {/* Display the navigation bar */}
       <Navbar />
-      {/* Display the page title */}
       <Text style={styles.pageTitle}>User Profiles</Text>
-      <View style={styles.break} /> {/* Spacer */}
+      <View style={styles.break} />
       <View style={styles.usersContainer}>
-        {/* Render a list of user profiles */}
         {users.map((user, idx) => (
           <View key={idx} style={styles.userBox}>
-            {/* Navigate to Page2 when the user name is clicked */}
             <TouchableOpacity onPress={() => navigation.navigate('Page2', { username: user.Username })}>
               <Text style={[styles.name, { textDecorationLine: 'underline' }]}>{user.Username}</Text>
             </TouchableOpacity>
-            {/* Display the user's bio */}
             <Text style={styles.bio}>{user.Bio}</Text>
           </View>
         ))}

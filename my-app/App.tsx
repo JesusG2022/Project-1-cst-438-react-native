@@ -11,7 +11,16 @@ import Page2 from './pages/page2'; // Page2 component
 import WordOftheDay from './pages/WordOftheDay'; // Word of the Day page component
 import MyPoems from './pages/MyPoems'; // MyPoems page component
 import './database/database'; // Initializes the database
+
 import { UserProvider } from './contexts/UserContext'; // User context provider for authentication
+
+import SearchPost from './pages/SeachPost';
+import SearchResult from './pages/SeachResult';
+import { StackScreenProps } from '@react-navigation/stack'; // Type for stack screen props
+
+// Define the type for the Home screen props
+type HomeProps = StackScreenProps<RootStackParamList, 'Home'>;
+
 
 // Define the parameter list for the stack navigator
 export type RootStackParamList = {
@@ -23,6 +32,8 @@ export type RootStackParamList = {
   Page2: { username: string }; // Username to show their posts
   WordOftheDay: undefined; // No parameters for WordOftheDay
   MyPoems: { userId: string }; // MyPoems screen expects a userId parameter
+  SearchPost: undefined; // No parameters for SearchPost
+  SearchResult: { query: string }; // SearchResult expects a query parameter
 };
 
 // Create the stack navigator
