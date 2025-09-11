@@ -6,17 +6,7 @@ import { useNavigation } from '@react-navigation/native'; // Import navigation h
 import { TouchableOpacity } from 'react-native'; // Import TouchableOpacity for clickable elements
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'; // Import type for navigation props
 import { getAllUsers } from '../database/database';
-
-// Define the parameter list for the stack navigator
-type RootStackParamList = {
-  Start: undefined; // No parameters for the Start screen
-  SignIn: undefined; // No parameters for the SignIn screen
-  SignUp: undefined; // No parameters for the SignUp screen
-  Home: undefined; // No parameters for the Home screen
-  Page1: undefined; // No parameters for Page1
-  Page2: undefined; // No parameters for Page2
-  WordOftheDay: undefined; // No parameters for WordOftheDay
-};
+import { RootStackParamList } from '../App'; // Import the shared type definition (replaces local type definition)
 
 // Define the type for the Page1 screen navigation prop
 type Page1ScreenProp = NativeStackNavigationProp<RootStackParamList, 'Page1'>;
