@@ -57,6 +57,8 @@ export default function App() {
           />
           <Stack.Screen name="Page1" component={Page1} />
           <Stack.Screen name="Page2" component={Page2} />
+          <Stack.Screen name="SearchPost" component={SearchPost} />
+          <Stack.Screen name="SearchResult" component={SearchResult} />
           <Stack.Screen name="WordOftheDay" component={WordOftheDay} />
           <Stack.Screen 
             name="MyPoems" 

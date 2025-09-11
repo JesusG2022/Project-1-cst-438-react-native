@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, TextInput, StyleSheet, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation
+import type { StackNavigationProp } from '@react-navigation/stack';
+
+type RootStackParamList = {
+    SearchResult: { query: string };
+};
+
 import Navbar from '../components/Navbar'; 
 import Title from '../components/Title';  
 
 const SearchPost: React.FC = () => {
     const [searchText, setSearchText] = useState('');
-    const navigation = useNavigation<any>();
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'SearchResult'>>(); // Typed navigation
 
     const handleSearch = () => {
-        navigation.navigate('SearchResult', { query: searchText });
+        if (searchText.trim()) {
+            // Navigate to SearchResult screen with the search query as a parameter
+            navigation.navigate('SearchResult', { query: searchText });
+        }
     };
 
     return (
@@ -28,7 +37,6 @@ const SearchPost: React.FC = () => {
             />
             <View style={{ height: 30 }} />
             <Button title="Search" onPress={handleSearch} />
-
         </View>
     );
 };

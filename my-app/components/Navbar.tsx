@@ -27,7 +27,9 @@ const Navbar = () => {
           <Text style={styles.link}>My Posts</Text>
         </TouchableOpacity>
       )}
-      
+      <TouchableOpacity onPress={() => navigation.navigate('SearchPost')}>
+        <Text style={styles.link}>Search</Text>
+      </TouchableOpacity>
       {/* Logout button */}
       {currentUser && (
         <TouchableOpacity onPress={() => {
@@ -39,9 +41,7 @@ const Navbar = () => {
       )}
 
       {/* Add navigation link for SearchPost */}
-      <TouchableOpacity onPress={() => navigation.navigate('SearchPost')}>
-        <Text style={styles.link}>Search</Text>
-      </TouchableOpacity>
+
 
     </View>
   );
