@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert, Modal } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert, Modal, Button } from 'react-native';
 import Layout from '../components/Layout'; // Import Layout component
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../App';
@@ -29,6 +29,9 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // State for search text
+  const [searchText, setSearchText] = useState('');
 
   // Fetch posts when component mounts or current user changes
   useEffect(() => {
@@ -163,6 +166,12 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
     }
   };
 
+  // Handler for search button (currently just alerts, implement actual search logic as needed)
+  const handleSearch = () => {
+    Alert.alert('Search', `Searching for: ${searchText}`);
+    // TODO: Implement actual search logic here
+  };
+
   // Function to close modals and reset form
   const closeModals = () => {
     setIsAddModalVisible(false);
@@ -176,12 +185,18 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
 
   return (
     <Layout>
-      <Text style={styles.pageTitle}>My Posts</Text>
-      <View style={styles.break} />
-      {/* Add Post Button */}
-      <TouchableOpacity style={styles.addButton} onPress={() => setIsAddModalVisible(true)}>
-        <Text style={styles.addButtonText}>+ Add New Post</Text>
-      </TouchableOpacity>
+        <Text style={styles.pageTitle}>Search Page</Text>
+            <TextInput
+                style={styles.searchBar}
+                placeholder="Search posts..."
+                value={searchText}
+                onChangeText={setSearchText}
+                autoCapitalize="none"
+                autoCorrect={false}
+                clearButtonMode="while-editing"
+            />
+            <View style={{ height: 30 }} />
+            <Button title="Search" onPress={handleSearch} />
       <View style={styles.break} />
       {/* Posts List */}
       <ScrollView
@@ -480,6 +495,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 6,
   },
+
+      searchBar: {
+        height: 40,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        backgroundColor: '#f9f9f9',
+    },
 });
 
 export default MyPoems;
