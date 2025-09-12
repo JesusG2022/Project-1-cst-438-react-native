@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation
 import type { StackNavigationProp } from '@react-navigation/stack';
 import Layout from '../components/Layout';
@@ -21,6 +21,7 @@ const SearchPost: React.FC = () => {
 
     return (
         <Layout>
+        <Text style={styles.pageTitle}>Search Page</Text>
             <TextInput
                 style={styles.searchBar}
                 placeholder="Search posts..."
@@ -44,6 +45,13 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 12,
         backgroundColor: '#f9f9f9',
+    },
+    pageTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 16,
+        textAlign: 'center',
+        color: '#333',
     },
 });
 

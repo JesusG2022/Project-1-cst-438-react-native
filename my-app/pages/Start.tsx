@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button, StyleSheet } from 'react-native'; // Import necessary components from React Native
+import { View, Button, StyleSheet, Image } from 'react-native'; // Import necessary components from React Native
 import Title from '../components/Title'; // Import the Title component for the page title
 import { useNavigation } from '@react-navigation/native'; // Import navigation hook for screen navigation
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'; // Import type for navigation props
@@ -32,6 +32,10 @@ const Start = () => {
   return (
     <View style={styles.container}>
       <Title />
+        <Image
+          source={require('../img/hand-writing-close-up-animated-gif.gif')}
+          style={styles.image}
+        />
       <Button title="Sign In" onPress={handleSignIn} />
       <View style={{ height: 20 }} />    
       <Button title="Sign Up" onPress={handleSignUp} />
@@ -45,6 +49,11 @@ const styles = StyleSheet.create({
     flex: 1, // Take up the full screen
     alignItems: 'center', // Center items horizontally
     justifyContent: 'center', // Center items vertically
+  },
+  image: {
+    width: 500,
+    height: 275,
+    marginBottom: 20,
   },
 });
 

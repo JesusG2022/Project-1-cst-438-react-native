@@ -128,7 +128,20 @@ const styles = StyleSheet.create({
   title: { fontSize: 22, fontWeight: 'bold', marginBottom: 20, textAlign: 'center', color: '#2c3e50' },
   loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   loading: { fontSize: 18, textAlign: 'center', color: '#7f8c8d' },
-  wordOfTheDayContainer: { backgroundColor: '#f8f9fa', padding: 25, borderRadius: 10, alignItems: 'center', width: '100%', maxWidth: 400, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 3 },
+  wordOfTheDayContainer: { 
+    backgroundColor: '#f8f9fa', 
+    padding: 25, 
+    borderRadius: 10, 
+    alignItems: 'center', 
+    alignSelf: 'center', // Center horizontally
+    width: '100%', 
+    maxWidth: 400, 
+    shadowColor: '#000', 
+    shadowOffset: { width: 0, height: 2 }, 
+    shadowOpacity: 0.1, 
+    shadowRadius: 4, 
+    elevation: 3 
+  },
   date: { fontSize: 16, color: '#6c757d', marginBottom: 20, fontStyle: 'italic' },
   wordOfTheDay: { fontSize: 36, fontWeight: 'bold', color: '#e74c3c', textAlign: 'center', marginBottom: 25, textTransform: 'capitalize', letterSpacing: 1 },
   detailsScroll: { width: '100%', maxHeight: 250 },
