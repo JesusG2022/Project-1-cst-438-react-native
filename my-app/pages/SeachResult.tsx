@@ -3,8 +3,7 @@ import { View, Text, StyleSheet, TextInput, Button, ScrollView } from 'react-nat
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { searchPosts } from '../database/database'; // Import the searchPosts function
-import Navbar from '../components/Navbar';
-import Title from '../components/Title';
+import Layout from '../components/Layout';
 
 const SearchResult: React.FC = () => {
   const route = useRoute();
@@ -13,7 +12,6 @@ const SearchResult: React.FC = () => {
   const [searchText, setSearchText] = useState(query);
   const [results, setResults] = useState<{ Date: string; text_quote: string }[]>([]);
 
-  // Fetch search results when the component mounts or the query changes
   useEffect(() => {
     const fetchResults = async () => {
       const posts = await searchPosts(query);
@@ -27,10 +25,7 @@ const SearchResult: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Title />
-      <Navbar />
-      <View style={{ height: 30 }} />
+    <Layout>
       <TextInput
         style={styles.searchBar}
         placeholder="Search posts..."
@@ -43,7 +38,6 @@ const SearchResult: React.FC = () => {
       <View style={{ height: 30 }} />
       <Button title="Search" onPress={handleSearch} />
       <Text style={styles.resultText}>Search Results for: "{query}"</Text>
-      <View style={{ height: 40 }} />
       <ScrollView>
         {results.length === 0 ? (
           <Text style={styles.noResults}>NO RESULTS FOUND</Text>
@@ -56,16 +50,11 @@ const SearchResult: React.FC = () => {
           ))
         )}
       </ScrollView>
-    </View>
+    </Layout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    backgroundColor: '#fff',
-    flex: 1,
-  },
   searchBar: {
     height: 40,
     borderColor: '#ccc',

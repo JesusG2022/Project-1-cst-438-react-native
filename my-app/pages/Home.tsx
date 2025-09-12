@@ -1,10 +1,9 @@
-// Import necessary components and modules
-import Title from '../components/Title'; // Import the Title component for the page title
-import Navbar from '../components/Navbar'; // Import the Navbar component for navigation links
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native'; // Import React Native components
 import { StackScreenProps } from '@react-navigation/stack'; // Import type for stack screen props
 import { RootStackParamList } from '../App'; // Import the RootStackParamList type from App.tsx
+import Layout from '../components/Layout'; // Import the Layout component
+// import content from '../components/content';
 
 // Define the type for the Home screen props
 type HomeProps = StackScreenProps<RootStackParamList, 'Home'>;
@@ -18,12 +17,11 @@ const Home: React.FC<HomeProps> = ({ route }) => {
   console.log('User ID:', userId);
 
   return (
-    <View style={styles.container}>
-      <Title />
-      <Navbar />
-      <Text style={styles.pageTitle}>Home Page</Text>
-      <Text style={styles.textAll}>Welcome to the home page!</Text>
-    </View>
+    <Layout>
+      <View style={styles.container}>
+        <Text style={styles.pageTitle}>Home Page</Text>
+      </View>
+    </Layout>
   );
 };
 

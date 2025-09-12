@@ -1,16 +1,11 @@
-// pages/WordOftheDay.tsx
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Title from '../components/Title';
-import Navbar from '../components/Navbar';
-
-// useState tool used to create state variables - information the component needs to remember
+import Layout from '../components/Layout';
 
 const WordOftheDay: React.FC = () => {
   const [wordOfTheDay, setWordOfTheDay] = useState('');
-  const [wordDetails, setWordDetails] = useState<any | null>(null);  // Park - Added this and removed the wordOftheDayDefinition state 
-  // const [wordOfTheDayDefinition, setWordOfTheDayDefinition] = useState('');
+  const [wordDetails, setWordDetails] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const getPSTDate = () => {
@@ -66,37 +61,16 @@ const WordOftheDay: React.FC = () => {
     }
   };
 
-  // const fetchWordOfTheDayDefinition = async (wordToDefine: string) => {
-  //   try {
-  //     setWordOfTheDayDefinition('Loading...');
-  //     const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordToDefine.toLowerCase().trim()}`);
-  //     if (!res.ok) throw new Error('Could not fetch resource');
-  //     const data = await res.json();
-  //     const def = data?.[0]?.meanings?.[0]?.definitions?.[0]?.definition ?? 'No definition found';
-  //     setWordOfTheDayDefinition(def);
-  //   } catch (e) {
-  //     console.error(e);
-  //     setWordOfTheDayDefinition('Definition not available');
-  //   }
-  // };
-
   const fetchWordDetails = async (wordToDefine: string) => {
     try {
       const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordToDefine.toLowerCase().trim()}`);
       if (!res.ok) throw new Error('Could not fetch resource');
-            const data = await res.json();
-
-      // Put the details into an object
+      const data = await res.json();
       setWordDetails(data[0]);
     } catch (e) {
       console.error(e);
-      setWordDetails(null); // sets to null if error
+      setWordDetails(null);
     }
-
-
-    
-
-
   };
 
   useEffect(() => {
@@ -109,21 +83,19 @@ const WordOftheDay: React.FC = () => {
 
   useEffect(() => {
     if (wordOfTheDay) {
-      fetchWordDetails(wordOfTheDay); // changed to fetchWordDetails instead of fetchWordOfTheDayDefinition
+      fetchWordDetails(wordOfTheDay);
     }
   }, [wordOfTheDay]);
 
   return (
-    <View style={styles.container}>
-      <Title />
-      <Navbar />
+    <Layout>
       <Text style={styles.title}>Word of the Day</Text>
       {isLoading ? (
         <View style={styles.loadingContainer}>
           <Text style={styles.loading}>Loading today's word...</Text>
         </View>
       ) : (
-       <View style={styles.wordOfTheDayContainer}>
+        <View style={styles.wordOfTheDayContainer}>
           <Text style={styles.date}>{formatDateForDisplay()}</Text>
           <Text style={styles.wordOfTheDay}>{wordOfTheDay}</Text>
           <ScrollView style={styles.detailsScroll}>
@@ -146,98 +118,24 @@ const WordOftheDay: React.FC = () => {
           </ScrollView>
         </View>
       )}
-    </View>
+    </Layout>
   );
 };
 
 export default WordOftheDay;
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    backgroundColor: '#fff', 
-    padding: 20, 
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  title: { 
-    fontSize: 22, 
-    fontWeight: 'bold', 
-    marginBottom: 20, 
-    textAlign: 'center',
-    color: '#2c3e50'
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  loading: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#7f8c8d'
-  },
-  wordOfTheDayContainer: {
-    backgroundColor: '#f8f9fa',
-    padding: 25,
-    borderRadius: 10,
-    alignItems: 'center',
-    width: '100%',
-    maxWidth: 400,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3
-  },
-  date: {
-    fontSize: 16,
-    color: '#6c757d',
-    marginBottom: 20,
-    fontStyle: 'italic'
-  },
-  wordOfTheDay: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#e74c3c',
-    textAlign: 'center',
-    marginBottom: 25,
-    textTransform: 'capitalize',
-    letterSpacing: 1
-  },
- detailsScroll: {
-    width: '100%',
-    maxHeight: 250, // not sure if this is fine, feel free to change tho
-  },
-  meaningContainer: {
-    width: '100%',
-    marginBottom: 20,
-  },
-  partOfSpeech: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#2980b9',
-    marginBottom: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    paddingBottom: 5,
-  },
-  definitionBlock: {
-    marginBottom: 15,
-  },
-  definition: {
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  example: {
-    fontSize: 15,
-    fontStyle: 'italic',
-    color: '#555',
-    marginTop: 5,
-  },
-  synonyms: {
-    fontSize: 15,
-    color: '#3498db',
-    marginTop: 5,
-  }
+  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 20, textAlign: 'center', color: '#2c3e50' },
+  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  loading: { fontSize: 18, textAlign: 'center', color: '#7f8c8d' },
+  wordOfTheDayContainer: { backgroundColor: '#f8f9fa', padding: 25, borderRadius: 10, alignItems: 'center', width: '100%', maxWidth: 400, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 3 },
+  date: { fontSize: 16, color: '#6c757d', marginBottom: 20, fontStyle: 'italic' },
+  wordOfTheDay: { fontSize: 36, fontWeight: 'bold', color: '#e74c3c', textAlign: 'center', marginBottom: 25, textTransform: 'capitalize', letterSpacing: 1 },
+  detailsScroll: { width: '100%', maxHeight: 250 },
+  meaningContainer: { width: '100%', marginBottom: 20 },
+  partOfSpeech: { fontSize: 20, fontWeight: 'bold', color: '#2980b9', marginBottom: 10, borderBottomWidth: 1, borderBottomColor: '#eee', paddingBottom: 5 },
+  definitionBlock: { marginBottom: 15 },
+  definition: { fontSize: 16, lineHeight: 24 },
+  example: { fontSize: 15, fontStyle: 'italic', color: '#555', marginTop: 5 },
+  synonyms: { fontSize: 15, color: '#3498db', marginTop: 5 },
 });

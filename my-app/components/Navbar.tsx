@@ -64,10 +64,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   logoutLink: {
-    color: '#ffcdd2', // Set text color to light red for logout button
-    fontSize: 18, // Set font size
-    fontWeight: 'bold', // Make text bold
-    marginHorizontal: 10, // Add horizontal margin between links
+    color: '#ffcdd2',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginHorizontal: 10,
   },
 });
 
