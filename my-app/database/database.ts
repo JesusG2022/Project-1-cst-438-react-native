@@ -71,13 +71,13 @@ const initializeDatabase = async () => {
           const titles = ['First Post', 'My Post', 'Thoughts', 'Update', 'News'];
           const randomTitle = titles[postData.UserId % titles.length] || 'My Post';
           await db.runAsync(
-            `UPDATE Post15 SET Title = ? WHERE PostId = ?`,
+            `UPDATE Posts18 SET Title = ? WHERE PostId = ?`,
             [`User ${postData.UserId}'s ${randomTitle}`, postData.PostId]
           );
         }
         console.log('Updated existing posts with titles');
       } else {
-        // Insert predefined posts into the Post15 table
+        // Insert predefined posts into the Posts18 table
         const posts = [
           { UserId: 1, Date: '2025-09-05', Title: 'Jesus\' First Post', text_quote: 'This is a post by Jesus.' },
           { UserId: 2, Date: '2025-09-05', Title: 'Roy\'s First Post', text_quote: 'This is a post by Roy.' },
@@ -87,7 +87,7 @@ const initializeDatabase = async () => {
 
         for (const post of posts) {
           try {
-            // Insert each post into the Post15 table
+            // Insert each post into the Posts18 table
             await db.runAsync(
               `INSERT INTO Posts18 (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
               [post.UserId, post.Date, post.Title, post.text_quote]
@@ -163,7 +163,7 @@ export const addPost = async (userId: number, title: string, content: string) =>
     const currentDate = `${pstDate.getFullYear()}-${String(pstDate.getMonth() + 1).padStart(2, '0')}-${String(pstDate.getDate()).padStart(2, '0')}`;
     
     const result = await db.runAsync(
-      `INSERT INTO Post15 (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
+      `INSERT INTO Posts18 (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
       [userId, currentDate, title, content]
     );
     return result;
@@ -207,7 +207,7 @@ export const updatePost = async (postId: number, title: string, content: string)
   try {
     const db = await dbPromise;
     await db.runAsync(
-      `UPDATE Post15 SET Title = ?, text_quote = ? WHERE PostId = ?`,
+      `UPDATE Posts18 SET Title = ?, text_quote = ? WHERE PostId = ?`,
       [title, content, postId]
     );
   } catch (error) {
@@ -220,7 +220,7 @@ export const updatePost = async (postId: number, title: string, content: string)
 export const deletePost = async (postId: number) => {
   try {
     const db = await dbPromise;
-    const result = await db.runAsync('DELETE FROM Post15 WHERE PostId = ?', [postId]);
+    const result = await db.runAsync('DELETE FROM Posts18 WHERE PostId = ?', [postId]);
     return result;
   } catch (error) {
     console.error('Error deleting post:', error);
