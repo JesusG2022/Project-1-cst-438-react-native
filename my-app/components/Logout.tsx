@@ -15,10 +15,8 @@ const Logout = () => {
           logout();
           navigation.navigate('Start');
         }}
-        onMouseEnter={() => setIsHovered(true)} // Detect hover
-        onMouseLeave={() => setIsHovered(false)} // Detect hover end
       >
-        <Text style={[styles.logoutLink, isHovered && styles.hoveredText]}>Logout</Text>
+        <Text style={styles.logoutLink}>Logout</Text>
       </TouchableOpacity>
     </View>
   );

@@ -5,18 +5,11 @@ import { useUser } from '../contexts/UserContext';
 
 const Navbar = () => {
   const navigation = useNavigation<any>();
+  const { currentUser } = useUser();
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
   const handleHover = (link: string) => setHoveredLink(link);
   const handleHoverEnd = () => setHoveredLink(null);
-
-  const routeMapping: { [key: string]: string } = {
-    Home: 'Home',
-    Accounts: 'Page1',
-    Word: 'WordOftheDay',
-    'My Posts': 'MyPoems',
-    Search: 'SearchPost',
-  };
 
   return (
     <View style={styles.navbarContainer}>
@@ -24,11 +17,9 @@ const Navbar = () => {
         {['Home', 'Accounts', 'Word', 'My Posts', 'Search'].map((link) => (
           <TouchableOpacity
             key={link}
-            onPress={() => navigation.navigate(routeMapping[link])} // Use mapped route names
-            onMouseEnter={() => handleHover(link)}
-            onMouseLeave={handleHoverEnd}
+            onPress={() => navigation.navigate(link.replace(' ', ''))}
           >
-            <Text style={[styles.link, hoveredLink === link && styles.hoveredText]}>{link}</Text>
+            <Text style={styles.link}>{link}</Text>
           </TouchableOpacity>
         ))}
       </View>
