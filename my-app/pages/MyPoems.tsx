@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View,Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert,Modal } from 'react-native';
-import Title from '../components/Title';
-import Navbar from '../components/Navbar';
+import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert, Modal } from 'react-native';
+import Layout from '../components/Layout'; // Import Layout component
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../App';
 import { addPost, getPostsByUserId, updatePost, deletePost } from '../database/database';
@@ -58,7 +57,6 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
     }
   };
 
-
   // Function to handle adding a new post for the current user
   const handleAddPost = async () => {
     if (!newTitle.trim() || !newContent.trim()) {
@@ -74,7 +72,6 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
     try {
       // Add post for the current user from context
       await addPost(currentUser.userId, newTitle.trim(), newContent.trim());
-      
       setNewTitle('');
       setNewContent('');
       setIsAddModalVisible(false);
@@ -119,10 +116,10 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
   // Function to confirm delete
   const confirmDelete = async () => {
     if (!postToDelete) return;
-    
+
     try {
       const result = await deletePost(postToDelete.PostId);
-      
+
       if (result && result.changes > 0) {
         await fetchPosts(); // Refresh the list
         setIsDeleteModalVisible(false);
@@ -143,7 +140,6 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
     setPostToDelete(null);
   };
 
-
   // Function to open edit modal
   const openEditModal = (post: Post) => {
     setEditingPost(post);
@@ -159,7 +155,7 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
       return date.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
-        day: 'numeric'
+        day: 'numeric',
       });
     } catch (error) {
       console.error('Error formatting date:', error);
@@ -179,26 +175,16 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Title />
-      <Navbar />
+    <Layout>
       <Text style={styles.pageTitle}>My Posts</Text>
-      
       <View style={styles.break} />
-      
       {/* Add Post Button */}
-      <TouchableOpacity 
-        style={styles.addButton} 
-        onPress={() => setIsAddModalVisible(true)}
-      >
+      <TouchableOpacity style={styles.addButton} onPress={() => setIsAddModalVisible(true)}>
         <Text style={styles.addButtonText}>+ Add New Post</Text>
       </TouchableOpacity>
-
-
       <View style={styles.break} />
-
       {/* Posts List */}
-      <ScrollView 
+      <ScrollView
         style={styles.postsContainer}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={true}
@@ -216,16 +202,10 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
               </View>
               <Text style={styles.postContent}>{post.text_quote}</Text>
               <View style={styles.postActions}>
-                <TouchableOpacity 
-                  style={styles.editButton} 
-                  onPress={() => openEditModal(post)}
-                >
+                <TouchableOpacity style={styles.editButton} onPress={() => openEditModal(post)}>
                   <Text style={styles.buttonText}>Edit</Text>
                 </TouchableOpacity>
-                <TouchableOpacity 
-                  style={styles.deleteButton} 
-                  onPress={() => handleDeletePost(post)}
-                >
+                <TouchableOpacity style={styles.deleteButton} onPress={() => handleDeletePost(post)}>
                   <Text style={styles.buttonText}>Delete</Text>
                 </TouchableOpacity>
               </View>
@@ -233,7 +213,6 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
           ))
         )}
       </ScrollView>
-
       {/* Add Post Modal */}
       <Modal
         visible={isAddModalVisible}
@@ -269,7 +248,6 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
           </View>
         </View>
       </Modal>
-
       {/* Edit Post Modal */}
       <Modal
         visible={isEditModalVisible}
@@ -305,7 +283,6 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
           </View>
         </View>
       </Modal>
-
       {/* Delete Confirmation Modal */}
       <Modal
         visible={isDeleteModalVisible}
@@ -319,9 +296,7 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
             <Text style={styles.deleteMessage}>
               Are you sure you want to delete "{postToDelete?.Title}"?
             </Text>
-            <Text style={styles.deleteWarning}>
-              This action cannot be undone.
-            </Text>
+            <Text style={styles.deleteWarning}>This action cannot be undone.</Text>
             <View style={styles.modalActions}>
               <TouchableOpacity style={styles.cancelButton} onPress={cancelDelete}>
                 <Text style={styles.buttonText}>Cancel</Text>
@@ -333,18 +308,12 @@ const MyPoems: React.FC<MyPoemsProps> = () => {
           </View>
         </View>
       </Modal>
-    </View>
+    </Layout>
   );
 };
 
 // Styles for the MyPoems component
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    paddingTop: 40,
-    backgroundColor: '#fff',
-  },
   pageTitle: {
     fontSize: 24,
     fontWeight: 'bold',

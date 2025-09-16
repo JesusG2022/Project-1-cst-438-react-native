@@ -7,7 +7,7 @@ describe('Database Tests', () => {
     const db = await dbPromise;
     // Ensure the database is initialized before running tests
     await db.execAsync(`
-      CREATE TABLE IF NOT EXISTS User (
+      CREATE TABLE IF NOT EXISTS Users1 (
         UserId INTEGER PRIMARY KEY AUTOINCREMENT,
         Username VARCHAR(225) UNIQUE,
         Password VARCHAR(225) UNIQUE,
@@ -17,18 +17,18 @@ describe('Database Tests', () => {
     `);
 
     await db.execAsync(`
-      CREATE TABLE IF NOT EXISTS Posts (
+      CREATE TABLE IF NOT EXISTS Posts1 (
         PostId INTEGER PRIMARY KEY,
         UserId INTEGER,
         Date DATE,
-        text_quote VARCHAR(1000),
+        text_quote VARCHAR(10000),
         FOREIGN KEY (UserId) REFERENCES User(UserId)
       )
     `);
 
     // Insert test data
-    await db.execAsync(`DELETE FROM User`);
-    await db.execAsync(`DELETE FROM Posts`);
+    await db.execAsync(`DELETE FROM Users1`);
+    await db.execAsync(`DELETE FROM Posts1`);
 
     const users = [
       { Username: 'jesus', Password: 'password1', Email: 'jesus@example.com', Bio: 'Bio for Jesus' },

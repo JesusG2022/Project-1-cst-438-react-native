@@ -1,52 +1,72 @@
-// Import necessary components and modules
-import Title from '../components/Title'; // Import the Title component for the page title
-import Navbar from '../components/Navbar'; // Import the Navbar component for navigation links
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native'; // Import React Native components
-import { StackScreenProps } from '@react-navigation/stack'; // Import type for stack screen props
-import { RootStackParamList } from '../App'; // Import the RootStackParamList type from App.tsx
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import { useUser } from '../contexts/UserContext';
+import { getPostsByUserId } from '../database/database';
+import Layout from '../components/Layout';
 
-// Define the type for the Home screen props
-type HomeProps = StackScreenProps<RootStackParamList, 'Home'>;
+const Home = () => {
+  const { currentUser } = useUser();
+  const [postCount, setPostCount] = useState<number>(0);
 
-// Home component: Displays the home page of the app
-const Home: React.FC<HomeProps> = ({ route }) => {
-  // Extract the userId parameter from the route props
-  const { userId } = route.params;
+  useEffect(() => {
+    const fetchPostCount = async () => {
+      if (currentUser) {
+        const posts = await getPostsByUserId(currentUser.userId);
+        setPostCount(posts.length);
+      }
+    };
 
-  // Log the userId to the console for debugging purposes
-  console.log('User ID:', userId);
+    fetchPostCount();
+  }, [currentUser]);
 
   return (
-    <View style={styles.container}>
-      <Title />
-      <Navbar />
-      <Text style={styles.pageTitle}>Home Page</Text>
-      <Text style={styles.textAll}>Welcome to the home page!</Text>
-    </View>
+    <Layout>
+      <View style={styles.container}>
+        <Text style={styles.pageTitle}>Home Page</Text>
+              <Image
+        source={require('../img/jim carry.gif')}
+        style={styles.image}
+      />
+        {currentUser && (
+          <View style={styles.userInfo}>
+            <Text style={styles.infoText}>Username: {currentUser.username}</Text>
+            <Text style={styles.infoText}>User ID: {currentUser.userId}</Text>
+            <Text style={styles.infoText}>Post Count: {postCount}</Text>
+          </View>
+        )}
+      </View>
+    </Layout>
   );
 };
 
-// Styles for the Home component
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Take up the full screen
-    alignItems: 'center', // Center items horizontally
-    paddingTop: 40, // Add padding at the top
-    backgroundColor: '#fff', // Set the background color to white
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 40,
+    backgroundColor: '#fff',
   },
   pageTitle: {
-    fontSize: 24, // Set font size for the page title
-    fontWeight: 'bold', // Make the page title bold
-    marginTop: 24, // Add space above the page title
-    marginBottom: 12, // Add space below the page title
-    textAlign: 'center', // Center-align the page title
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    textAlign: 'center',
   },
-  textAll: {
-    fontSize: 16, // Set font size for the welcome message
-    textAlign: 'center', // Center-align the welcome message
-    color: '#333', // Set the text color
+  userInfo: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  infoText: {
+    fontSize: 18,
+    color: '#333',
+    marginBottom: 8,
+  },
+  image: {
+    width: 500,
+    height: 275,
+    // marginBottom: 5,
+    resizeMode: 'contain',
   },
 });
 
-export default Home; // Export the Home component as default
+export default Home;
