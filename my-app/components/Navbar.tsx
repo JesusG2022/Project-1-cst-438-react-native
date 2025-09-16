@@ -11,15 +11,26 @@ const Navbar = () => {
   const handleHover = (link: string) => setHoveredLink(link);
   const handleHoverEnd = () => setHoveredLink(null);
 
+  // Map links to their corresponding route names
+  const links = [
+    { label: 'Home', route: 'Home' },
+    { label: 'Accounts', route: 'Page1' },
+    { label: 'Word', route: 'WordOftheDay' },
+    { label: 'My Posts', route: 'MyPoems' },
+    { label: 'Search', route: 'SearchPost' },
+  ];
+
   return (
     <View style={styles.navbarContainer}>
       <View style={styles.navbar}>
-        {['Home', 'Accounts', 'Word', 'My Posts', 'Search'].map((link) => (
+        {links.map(({ label, route }) => (
           <TouchableOpacity
-            key={link}
-            onPress={() => navigation.navigate(link.replace(' ', ''))}
+            key={label}
+            onPress={() => navigation.navigate(route)}
+            onMouseEnter={() => handleHover(label)}
+            onMouseLeave={handleHoverEnd}
           >
-            <Text style={styles.link}>{link}</Text>
+            <Text style={[styles.link, hoveredLink === label && styles.hoveredText]}>{label}</Text>
           </TouchableOpacity>
         ))}
       </View>
