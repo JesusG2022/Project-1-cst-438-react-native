@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation
 import type { StackNavigationProp } from '@react-navigation/stack';
 import Layout from '../components/Layout';
@@ -21,7 +21,11 @@ const SearchPost: React.FC = () => {
 
     return (
         <Layout>
-        <Text style={styles.pageTitle}>Search Page</Text>
+            <Text style={styles.pageTitle}>Search Page</Text>
+            <Image
+                source={require('../img/hand-writing-close-up-animated-gif.gif')} // Add the image here
+                style={styles.image}
+            />
             <TextInput
                 style={styles.searchBar}
                 placeholder="Search posts..."
@@ -52,6 +56,13 @@ const styles = StyleSheet.create({
         marginBottom: 16,
         textAlign: 'center',
         color: '#333',
+    },
+    image: {
+        width: 300, // Adjust the width as needed
+        height: 200, // Adjust the height as needed
+        resizeMode: 'contain', // Ensure the image fits within the dimensions
+        alignSelf: 'center', // Center the image horizontally
+        marginBottom: 20, // Add spacing below the image
     },
 });
 

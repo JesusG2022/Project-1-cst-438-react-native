@@ -41,10 +41,22 @@ const Page1 = () => {
 const styles = StyleSheet.create({
   pageTitle: { fontSize: 24, fontWeight: 'bold', marginTop: 24, textAlign: 'center' },
   name: { fontSize: 26, fontWeight: 'bold', marginBottom: 8 },
-  bio: { fontSize: 16, color: '#555' },
+  bio: { fontSize: 16, color: '#555', textAlign: 'center' },
   break: { height: 24 },
-  usersContainer: { width: '90%', alignItems: 'flex-start' },
-  userBox: { width: '100%', backgroundColor: '#f2f2f2', borderRadius: 8, padding: 16, marginBottom: 16 },
+  usersContainer: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    width: '100%' 
+  },
+  userBox: { 
+    width: '90%', 
+    backgroundColor: '#f2f2f2', 
+    borderRadius: 8, 
+    padding: 16, 
+    marginBottom: 16, 
+    alignItems: 'center' 
+  },
 });
 
 export default Page1;

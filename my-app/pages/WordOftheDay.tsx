@@ -8,10 +8,13 @@ const WordOftheDay: React.FC = () => {
   const [wordDetails, setWordDetails] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getPSTDate = () => {
-    const now = new Date();
-    return new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
-  };
+ const getPSTDate = () => {
+  const now = new Date();
+  // Get UTC time and offset for PST (-8 hours)
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  const pstOffset = -8; // PST is UTC-8
+  return new Date(utc + 3600000 * pstOffset);
+};
 
   const getTodayString = () => {
     const pstDate = getPSTDate();
