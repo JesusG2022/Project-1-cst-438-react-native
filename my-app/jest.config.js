@@ -1,16 +1,36 @@
+/** @type {import('jest').Config} */
+let refsTarget;
+let webTarget;
+
+try {
+  refsTarget = require.resolve('expo-modules-core/build/Refs');
+} catch {
+  refsTarget = '<rootDir>/test-shims/expo-refs.js';
+}
+
+try {
+  webTarget = require.resolve('expo-modules-core/build/web/index.web');
+} catch {
+  try {
+    webTarget = require.resolve('expo-modules-core/build/web/index');
+  } catch {
+    webTarget = '<rootDir>/test-shims/expo-web-index.js';
+  }
+}
+
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  transform: {
-    '^.+\\.tsx?$': 'babel-jest', // Use Babel to transform TypeScript files
-  },
-  transformIgnorePatterns: [
-    'node_modules/(?!(expo-sqlite|expo|@expo|react-native|@react-native|@react-navigation)/)', // Allow Jest to process these modules
+  preset: 'jest-expo',
+  testPathIgnorePatterns: ['/node_modules/', '/android/', '/ios/'],
+  setupFilesAfterEnv: [
+    '@testing-library/jest-native/extend-expect',
+    '<rootDir>/jest.setup.ts',
   ],
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  globals: {
-    'ts-jest': {
-      isolatedModules: true,
-    },
+  transformIgnorePatterns: [
+    'node_modules/(?!(react-native|@react-native|@react-navigation|@react-native-async-storage|expo(?:-.*)?|@expo|expo-modules-core)/)',
+  ],
+  moduleNameMapper: {
+    '^expo-modules-core/src/Refs$': refsTarget,
+    '^expo-modules-core/src/web/index\\.web$': webTarget,
+    '^@react-native-async-storage/async-storage$': '<rootDir>/test-shims/async-storage.js',
   },
 };
