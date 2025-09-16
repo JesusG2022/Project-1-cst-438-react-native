@@ -27,8 +27,8 @@ const Navbar = () => {
           <TouchableOpacity
             key={label}
             onPress={() => navigation.navigate(route)}
-            onMouseEnter={() => handleHover(label)}
-            onMouseLeave={handleHoverEnd}
+            // onMouseEnter={() => handleHover(label)}
+            // onMouseLeave={handleHoverEnd}
           >
             <Text style={[styles.link, hoveredLink === label && styles.hoveredText]}>{label}</Text>
           </TouchableOpacity>
