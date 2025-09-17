@@ -188,6 +188,21 @@ export const getPostsByUserId = async (userId: number) => {
   }
 };
 
+// Function to get all posts for today's date
+export const getPostsByDate = async (date: string) => {
+  try {
+    const db = await dbPromise;
+    const posts = await db.getAllAsync(
+      'SELECT PostId, Date, Title, text_quote FROM Posts18 WHERE Date = ? ORDER BY PostId DESC',
+      [date]
+    );
+    return posts; // Array of { PostId, Date, Title, text_quote }
+  } catch (error) {
+    console.error('Error fetching posts by date:', error);
+    return [];
+  } 
+};
+
 export const searchPosts = async (query: string) => {
   try {
     const db = await dbPromise;
