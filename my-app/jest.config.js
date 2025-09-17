@@ -1,16 +1,12 @@
+// jest.config.js
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  transform: {
-    '^.+\\.tsx?$': 'babel-jest', // Use Babel to transform TypeScript files
-  },
+  preset: 'react-native',
+  setupFilesAfterEnv: ['./jest.setup.js'],
   transformIgnorePatterns: [
-    'node_modules/(?!(expo-sqlite|expo|@expo|react-native|@react-native|@react-navigation)/)', // Allow Jest to process these modules
+    'node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)',
   ],
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  globals: {
-    'ts-jest': {
-      isolatedModules: true,
-    },
+  moduleNameMapper: {
+
+    uuid: require.resolve('uuid'),
   },
 };

@@ -1,6 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 
-const dbPromise = SQLite.openDatabaseAsync('databaseName');
+const dbPromise = SQLite.openDatabaseSync('databaseName');
 
 describe('Database Tests', () => {
   beforeAll(async () => {
@@ -53,18 +53,17 @@ describe('Database Tests', () => {
       );
     }
   });
-  
+
+  // MOVED: The test case was moved inside the 'describe' block to fix a structural error.
+  test('Should get correct UserId for "jesus"', async () => {
+    const db = await dbPromise;
+
+    const resultSet = await db.getAllAsync<{ UserId: number }>(
+      `SELECT UserId FROM User WHERE Username = 'jesus'`
+    );
+
+    // getAllAsync returns an array of rows
+    const userId = resultSet[0]?.UserId;
+    expect(userId).toBe(1);
   });
-
-test('Should get correct UserId for "jesus"', async () => {
-  const db = await dbPromise;
-
-  const resultSet = await db.getAllAsync<{ UserId: number }>(
-    `SELECT UserId FROM User WHERE Username = 'jesus'`
-  );
-
-  // getAllAsync returns an array of rows
-  const userId = resultSet[0]?.UserId;
-  expect(userId).toBe(1);
 });
-;
