@@ -70,15 +70,23 @@ Google Docs: https://docs.google.com/document/d/1xcH4lTldHDI7QZPknxUf0h0TRs253RK
 
 - a link to your pull requests
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
+
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
+
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
+
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
 
 - a link to your issues
+
 https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/
+
 https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/
+
 https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/
+
 https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/
+
 https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/
 
 ## What was your role / which stories did you work on
