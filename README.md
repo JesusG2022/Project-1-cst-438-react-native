@@ -1,15 +1,19 @@
-CST 438 Poetry Blog Project
+# CST 438 Poetry Blog Project
 This is a CST 438 project about creating a poetry blog with a word of the day using an API.
-Project 01 Retrospective and overview
+
+# Project 01 Retrospective and overview
 Github Repo: https://github.com/JesusG2022/Project-1-cst-438-react-native
-What to add to this project
+
+# What to add to this project
 Start by typing in the terminal
 npm i
 npm start (and choose what device you want it).
-If you error with SQL and react-native use this:
+
+# If you error with SQL and react-native use this:
 npm install react-native @types/react-native
 npm install expo-sqlite
-How to navigate
+
+# How to navigate
 Home page shows daily posts
 Accounts page shows all existing users, and clicking their name shows all their posts
 Word shows the daily word and its definition, synonyms, antonyms
@@ -18,13 +22,13 @@ Search for a word that appears in a poem
 Future features
 Sort posts by date
 Favorite poems
-Overview
+# Overview
 This is a poetry posting app, Poet’s Pick, that utilizes an API called ‘Free Dictionary API’ and another called ‘Random Free Random Word Generator API’. Here, the user is able to create and log in, where they will be suggested a random word of the day and create a poetry post that other users can view based on that given word. These were stored in a local database as a result. Users would also be able to modify their posts to edit what they made.  This was built through React Native that consumed information from a REST API and used a local database for caching. 
 
 We got styling help for this document from this guide and this guide. 
 
-Introduction
-How was communication managed:
+# Introduction
+## How was communication managed:
 Communication was mainly managed via Slack, Google Docs, and a group chat with our personal phone numbers. The group chat was mainly used to notify team members if we had a pull request to be merged, any questions we had, and anything we needed to let members know about availability and projected issues.
 Through Google Docs, we communicated our notes, ideas, and brainstorming to keep track of progress and keep each other accountable. 
 How many stories/issues were initially considered
@@ -32,8 +36,8 @@ Initially, the stories and issues we considered were 26.
 How many stories/issues were completed
 19 were completed as of September 11, 2025. 
 
-Team Retrospective
-Shannyn Cabi
+# Team Retrospective
+## Shannyn Cabi
 a link to your pull requests
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/28
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/31
@@ -61,7 +65,7 @@ Next time, I will create the unit tests first, then write my code around those t
 What is the most valuable thing you learned?
 I learned the importance of creating detailed user stories, so each team member can narrow down on something very specific to work on. Building on top of that, being very clear about what features we want the app to have, since this helps with building the database accurately early on. I also experienced working on an issue and knowing when to let it go and move on to another functionality, or differentiating which issues/stories are really critical, or not too important and would take up lots of my time working on them. I further experienced the importance of clear communication between teammates, since this ensures no one is stepping over each other’s code, and we all know what to expect to be updated in incoming pull requests.
 
-Jesus Garcia-Loyola
+## Jesus Garcia-Loyola
 a link to your pull requests
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/35
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/24
@@ -99,7 +103,8 @@ Add more style, like more color, since it seems it ot plain.
  
 What is the most valuable thing you learned?
 Learning how to use React and TypeScript. I know how to use Node.js, JavaScript, and HTML, so I was able to pick up the languages and technology 
-Justin Park
+
+## Justin Park
 Justin’s Pull requests here: 
 Justin’s GitHub issues:
 Link 1:
@@ -123,7 +128,7 @@ What is the most valuable thing you learned?
 The most valuable thing I learned was how to actually start practically applying Git and GitHub, and how to actually make branches and Pull Requests.
 
 
-Roy Sanchez-Ibarra
+## Roy Sanchez-Ibarra
 a link to your pull requests
 
 Roy's Pull Requests
@@ -160,7 +165,7 @@ If I could do this project again I would probably add more user functionality. I
 What is the most valuable thing you learned?
 Working on this project helped me get better using GitHub.
 
-Conclusion
+# Conclusion
 How successful was the project?
 Think in terms of what you set out to do and what actually got done.
 
