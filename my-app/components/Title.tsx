@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 
 const Title = () => (
-  <Text style={styles.title}>Welcome to group 9 project 1</Text>
+  <Text style={styles.title}>Poet's Pick!</Text>
 );
 
 const styles = StyleSheet.create({
