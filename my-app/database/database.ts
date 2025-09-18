@@ -60,22 +60,12 @@ const initializeDatabase = async () => {
       }
     }
 
-    // Check if posts already exist and update them with titles if needed
+    // Check if posts already exist
     try {
-      const existingPosts = await db.getAllAsync('SELECT PostId, UserId, text_quote FROM Posts24 WHERE Title IS NULL OR Title = \'\'');
+      const postCount = await db.getFirstAsync<{ count: number }>('SELECT COUNT(*) as count FROM Posts24');
       
-      if (existingPosts.length > 0) {
-        // Update existing posts with titles
-        for (const post of existingPosts) {
-          const postData = post as { PostId: number; UserId: number; text_quote: string };
-          const titles = ['First Post', 'My Post', 'Thoughts', 'Update', 'News'];
-          const randomTitle = titles[postData.UserId % titles.length] || 'My Post';
-          await db.runAsync(
-            `UPDATE Posts24 SET Title = ? WHERE PostId = ?`,
-            [`User ${postData.UserId}'s ${randomTitle}`, postData.PostId]
-          );
-        }
-        console.log('Updated existing posts with titles');
+      if (postCount && postCount.count > 0) {
+        console.log('Posts already exist, skip sample data insertion');
       } else {
         // Insert predefined posts into the Posts24 table
         const posts = [
@@ -88,18 +78,14 @@ const initializeDatabase = async () => {
           { UserId: 4, Date: '2025-09-05', Title: 'Shannyn\'s First Post', text_quote: 'This is a post by Shannyn.' }
         ];
 
+        // Insert sample posts using INSERT OR IGNORE to prevent duplicates
         for (const post of posts) {
-          try {
-            // Insert each post into the Posts24 table
-            await db.runAsync(
-              `INSERT INTO Posts24 (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
-              [post.UserId, post.Date, post.Title, post.text_quote]
-            );
-          } catch (error) {
-            console.error('Error inserting post:', post, error); // Log any errors during insertion
-          }
+          await db.runAsync(
+            `INSERT OR IGNORE INTO Posts24 (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
+            [post.UserId, post.Date, post.Title, post.text_quote]
+          );
         }
-        console.log('Inserted predefined posts');
+        console.log('Sample posts inserted successfully');
 
       }
     } catch (error) {
@@ -145,8 +131,7 @@ export const getPostsByUsername = async (username: string) => {
     if (!user || typeof user.UserId !== 'number') return [];
     // Get posts for that user
     const posts = await db.getAllAsync(
-      'SELECT PostId, Date, Title, text_quote FROM Posts24 WHERE UserId = ? ORDER BY PostId DESC', // order posts by post id
-
+      'SELECT PostId, Date, Title, text_quote FROM Posts24 WHERE UserId = ? ORDER BY Date DESC, PostId DESC', // order posts by date then post id
       [user.UserId]
     );
     return posts; // Array of { PostId, Date, Title, text_quote }
@@ -181,7 +166,7 @@ export const getPostsByUserId = async (userId: number) => {
   try {
     const db = await dbPromise;
     const posts = await db.getAllAsync(
-      'SELECT PostId, Date, Title, text_quote FROM Posts24 WHERE UserId = ? ORDER BY PostId DESC',
+      'SELECT PostId, Date, Title, text_quote FROM Posts24 WHERE UserId = ? ORDER BY Date DESC, PostId DESC',
       [userId]
     );
     return posts; // Array of { PostId, Date, Title, text_quote }
@@ -240,6 +225,23 @@ export const getUserIdByUsername = async (username: string) => {
   } catch (error) {
     console.error('Error getting user ID:', error);
     return null;
+  }
+};
+
+// Function to get all posts filtered by day, most recent first
+export const getAllPostsByDay = async () => {
+  try {
+    const db = await dbPromise;
+    const posts = await db.getAllAsync(`
+      SELECT p.PostId, p.UserId, p.Date, p.Title, p.text_quote, u.Username 
+      FROM Posts24 p 
+      JOIN Users24 u ON p.UserId = u.UserId 
+      ORDER BY p.Date DESC, p.PostId DESC
+    `);
+    return posts; // Array of { PostId, UserId, Date, Title, text_quote, Username }
+  } catch (error) {
+    console.error('Error fetching all posts by day:', error);
+    return [];
   }
 };
 
