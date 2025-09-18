@@ -40,8 +40,12 @@ result. Users would also be able to modify their posts to edit what they made. T
 through React Native that consumed information from a REST API and used a local database
 for caching.
 
+- Free Dictionary API: https://dictionaryapi.dev/
+- Random Free Random Word Generator API: https://random-word-api.vercel.app/
 
 We got styling help for this document from this guide and this guide.
+- Guide 1: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+- Guide 2: https://google.github.io/styleguide/
 
 # Introduction
 
@@ -58,16 +62,19 @@ How many stories/issues were initially considered
 How many stories/issues were completed
 - 19 were completed as of September 11, 2025.
 
+Google Docs: https://docs.google.com/document/d/1xcH4lTldHDI7QZPknxUf0h0TRs253RKgLHzJwp9SCE8/edit?usp=sharing
+
 # Team Retrospective
 
-# Shannyn Cabi
+## Shannyn Cabi
 
-a link to your pull requests
+- a link to your pull requests
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
-a link to your issues
+
+- a link to your issues
 https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/
 https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/
 https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/
@@ -79,27 +86,32 @@ https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/
 What was the biggest challenge?
 
 
-● Unit tests
+# Unit tests
+
 Why was it a challenge?
 ● Many attempts at creating unit tests resulted in hours of diagnosing issues with
 package/dependency mismatches or not being found, removing many files and
 reinstalling dependencies, to no avail.
+
 How was the challenge addressed?
 ● After discussing with my teammates who ran into similar issues, and bringing it up to Dr.
 C, who saw other groups with similar experiences, due to this taking a large amount of
 time with no seeming progress toward success, I decided to leave it alone and focus on
 other issues.
+
 Favorite / most interesting part of this project
 ● I really enjoyed brainstorming with my team and having our user stories develop during
 this process. I also really enjoyed when each member would have a big breakthrough
 with a new feature, that brought us closer to a finalized product. It was also interesting to
 look over their code and see the approaches they took for certain functionalities, such as
 the word of the day, or random word functions.
+
 If you could do it over, what would you change?
 ● Next time, I will create the unit tests first, then write my code around those to ensure they
 are successful. It also seems this approach prevents issues with dependencies like I was
 facing. I think I would also get really specific about the urgency of each feature, and
 make a numbered list in the order I want to implement them.
+
 What is the most valuable thing you learned?
 ● I learned the importance of creating detailed user stories, so each team member can
 narrow down on something very specific to work on. Building on top of that, being very
@@ -118,13 +130,12 @@ https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
+
 a link to your issues
-Restart the file again
-
-
-Search Word - Search function
-Create a database for user.
-Add style to the pages
+Restart the file again: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/25
+Search Word - Search function: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/18
+Create a database for user: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/13
+Add style to the pages: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/3
 
 ### What was your role / which stories did you work on
 
@@ -134,33 +145,38 @@ start a React project. But when I try to add Expo SQLite, it throws me some erro
 to my attention that I was using the wrong type of React. So I was able to change the project
 early on and fix my errors. I was also in charge of adding a search function and adding style to
 the project. I knew SQL, so I was able to make it quickly.
+
 What was the biggest challenge?
 ● Start/learn about React and start using SQLite.e
+
 Why was it a challenge?
 ● I am new to these tools and have never used this one before.
+
 How was the challenge addressed?
 ● I asked the TA and teacher about how to start.
 ● I would ask during office hours and class time.
+
 Favorite / most interesting part of this project
 ● I discovered that React and React Native are two different things.
 ○ One only works for the website (regular React), and the other can work for almost
 all devices (Native React).
+
 If you could do it over, what would you change?
 ● I would try to add more cool features, like changing the password securely by passing
 the current password. If correct, can change the password.
 ● Add more style, like more color, since it seems it ot plain.
+
 What is the most valuable thing you learned?
 ● Learning how to use React and TypeScript. I know how to use Node.js, JavaScript, and
 HTML, so I was able to pick up the languages and technology
 
 ## Justin Park
 
-Justin’s Pull requests here:
+Justin’s Pull requests here: https://github.com/JesusG2022/Project-1-cst-438-react-native/pulls?q=is%3Apr+is%3Aclosed+author%3Ahoostinn
+
 Justin’s GitHub issues:
-Link 1:
-
-
-Link 2:
+Link 1: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues?q=is%3Aissue%20state%3Aclosed%20assignee%3Ahoostinn
+Link 2: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues?q=is%3Aissue%20state%3Aopen%20assignee%3Ahoostinn
 
 ### What was your role / which stories did you work on
 
@@ -172,22 +188,27 @@ Link 2:
     facilitating brainstorming ideas and issues in order to carry on. While they did not
     delegate this role and others, they mainly helped get things going and interact with the
     API.
+
 What was the biggest challenge?
 - Learning how to use React Native and Git/GitHub.
+
 Why was it a challenge?
 - Being able to figure out how to merge and pull requests without causing issues was
 difficult. Being able to understand commands to input into the terminal and understand
 the process was also proven to be challenging. React Native and Git/GitHub were new
 to them, so having to learn them all at once proved to be challenging and overwhelming.
+
 How was the challenge addressed?
 - This was addressed by speaking with the TAs and running through examples and the
 processes one by one. I wrote notes and documentation to refer back to in order to
 remember and remind myself how things worked, and tried to teach it back to myself.
 - As for React Native, this was tackled by referring to a lot of documentation and YouTube
 tutorials, while trying to apply what was being shown to the project.
+
 Favorite / most interesting part of this project
 - My favorite part was being able to actually learn what Git and GitHub are and put that
 into practice.
+
 If you could do it over, what would you change?
 - I would change how I approached how I learned React Native and do more by doing,
 rather than consuming multiple YouTube tutorials and wasting time as a result.
@@ -197,35 +218,41 @@ GitHub, and how to actually make branches and Pull Requests.
 
 ## Roy Sanchez-Ibarra
 
-a link to your pull requests
-Roy's Pull Requests
+a link to your pull requests:
+Roy's Pull Requests: https://github.com/JesusG2022/Project-1-cst-438-react-native/pulls?q=is%3Apr+author%3AyYor+is%3Aclosed
 
 
-a link to your issues
-Delete post functionality
-Daily word - Time reset
-Edit post functionality
-Home Page draft
+a link to your issues: 
+Delete post functionality: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/2
+Daily word - Time reset: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/5
+Edit post functionality: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/6
+Home Page draft: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/8
 
 ### What was your role / which stories did you work on
 
-I worked on the poems posts, home page and also made some adjustments to the database.
+- I worked on the poems posts, home page and also made some adjustments to the database.
+
 What was the biggest challenge?
-Adding, removing and updating poem posts for each user was the biggest challenge.
+- Adding, removing and updating poem posts for each user was the biggest challenge.
+
 Why was it a challenge?
-At first the poems weren’t showing on the poems page. I would add a post to a user's account
+- At first the poems weren’t showing on the poems page. I would add a post to a user's account
 and it would display as a post for all the users on the database.
+
 How was the challenge addressed?
-I created a UserContext file to wrap around the application and it was able to handle the user’s
+- I created a UserContext file to wrap around the application and it was able to handle the user’s
 post better. It also made it a lot easier to add a log out button.
+
 Favorite / most interesting part of this project
-My favorite part of this project was coming up with ideas in our team. I think that working as a
+- My favorite part of this project was coming up with ideas in our team. I think that working as a
 team to build on top of ideas helped us create a unique product.
+
 If you could do it over, what would you change?
-If I could do this project again I would probably add more user functionality. I think that adding a
+- If I could do this project again I would probably add more user functionality. I think that adding a
 favorite or a like button would make this app more engaging for the user.
+
 What is the most valuable thing you learned?
-Working on this project helped me get better using GitHub.
+- Working on this project helped me get better using GitHub.
 
 
 # Conclusion
