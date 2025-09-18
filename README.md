@@ -69,6 +69,7 @@ Google Docs: https://docs.google.com/document/d/1xcH4lTldHDI7QZPknxUf0h0TRs253RK
 ## Shannyn Cabi
 
 - a link to your pull requests
+  
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
 
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
@@ -134,15 +135,23 @@ to be updated in incoming pull requests.
 ## Jesus Garcia-Loyola
 
 a link to your pull requests
+
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
+
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
+
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
+
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
 
 a link to your issues
+
 Restart the file again: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/25
+
 Search Word - Search function: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/18
+
 Create a database for user: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/13
+
 Add style to the pages: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/3
 
 ### What was your role / which stories did you work on
@@ -184,6 +193,7 @@ Justin’s Pull requests here: https://github.com/JesusG2022/Project-1-cst-438-r
 
 Justin’s GitHub issues:
 Link 1: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues?q=is%3Aissue%20state%3Aclosed%20assignee%3Ahoostinn
+
 Link 2: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues?q=is%3Aissue%20state%3Aopen%20assignee%3Ahoostinn
 
 ### What was your role / which stories did you work on
@@ -227,13 +237,18 @@ GitHub, and how to actually make branches and Pull Requests.
 ## Roy Sanchez-Ibarra
 
 a link to your pull requests:
+
 Roy's Pull Requests: https://github.com/JesusG2022/Project-1-cst-438-react-native/pulls?q=is%3Apr+author%3AyYor+is%3Aclosed
 
 
 a link to your issues: 
+
 Delete post functionality: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/2
+
 Daily word - Time reset: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/5
+
 Edit post functionality: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/6
+
 Home Page draft: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/8
 
 ### What was your role / which stories did you work on
