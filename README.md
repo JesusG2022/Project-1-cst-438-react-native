@@ -98,17 +98,20 @@ What was the biggest challenge?
 # Unit tests
 
 Why was it a challenge?
+
 ● Many attempts at creating unit tests resulted in hours of diagnosing issues with
 package/dependency mismatches or not being found, removing many files and
 reinstalling dependencies, to no avail.
 
 How was the challenge addressed?
+
 ● After discussing with my teammates who ran into similar issues, and bringing it up to Dr.
 C, who saw other groups with similar experiences, due to this taking a large amount of
 time with no seeming progress toward success, I decided to leave it alone and focus on
 other issues.
 
 Favorite / most interesting part of this project
+
 ● I really enjoyed brainstorming with my team and having our user stories develop during
 this process. I also really enjoyed when each member would have a big breakthrough
 with a new feature, that brought us closer to a finalized product. It was also interesting to
@@ -116,12 +119,14 @@ look over their code and see the approaches they took for certain functionalitie
 the word of the day, or random word functions.
 
 If you could do it over, what would you change?
+
 ● Next time, I will create the unit tests first, then write my code around those to ensure they
 are successful. It also seems this approach prevents issues with dependencies like I was
 facing. I think I would also get really specific about the urgency of each feature, and
 make a numbered list in the order I want to implement them.
 
 What is the most valuable thing you learned?
+
 ● I learned the importance of creating detailed user stories, so each team member can
 narrow down on something very specific to work on. Building on top of that, being very
 clear about what features we want the app to have, since this helps with building the
@@ -164,26 +169,32 @@ early on and fix my errors. I was also in charge of adding a search function and
 the project. I knew SQL, so I was able to make it quickly.
 
 What was the biggest challenge?
+
 ● Start/learn about React and start using SQLite.e
 
 Why was it a challenge?
+
 ● I am new to these tools and have never used this one before.
 
 How was the challenge addressed?
+
 ● I asked the TA and teacher about how to start.
 ● I would ask during office hours and class time.
 
 Favorite / most interesting part of this project
+
 ● I discovered that React and React Native are two different things.
 ○ One only works for the website (regular React), and the other can work for almost
 all devices (Native React).
 
 If you could do it over, what would you change?
+
 ● I would try to add more cool features, like changing the password securely by passing
 the current password. If correct, can change the password.
 ● Add more style, like more color, since it seems it ot plain.
 
 What is the most valuable thing you learned?
+
 ● Learning how to use React and TypeScript. I know how to use Node.js, JavaScript, and
 HTML, so I was able to pick up the languages and technology
 
