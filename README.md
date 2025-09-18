@@ -1,26 +1,37 @@
-CST 438 Poetry Blog Project
+# CST 438 Poetry Blog Project
+
 This is a CST 438 project about creating a poetry blog with a word of the day using an API.
 
-Project 01 Retrospective and overview
+# Project 01 Retrospective and overview
+
 Github Repo: https://github.com/JesusG2022/Project-1-cst-438-react-native
 
-What to add to this project
-Start by typing in the terminal
-npm i
-npm start (and choose what device you want it).
-If you error with SQL and react-native use this:
-npm install react-native @types/react-native
-npm install expo-sqlite
-How to navigate
-Home page shows daily posts
-Accounts page shows all existing users, and clicking their name shows all their posts
-Word shows the daily word and its definition, synonyms, antonyms
-My Posts shows logged in user's posts
-Search for a word that appears in a poem
-Future features
-Sort posts by date
-Favorite poems
-Overview
+## What to add to this project
+
+- Start by typing in the terminal
+- npm i
+- npm start (and choose what device you want it).
+
+## If you error with SQL and react-native use this:
+
+- npm install react-native @types/react-native
+- npm install expo-sqlite
+
+## How to navigate
+
+- Home page shows daily posts
+- Accounts page shows all existing users, and clicking their name shows all their posts
+- Word shows the daily word and its definition, synonyms, antonyms
+- My Posts shows logged in user's posts
+- Search for a word that appears in a poem
+
+## Future features
+
+- Sort posts by date
+- Favorite poems
+
+# Overview
+
 This is a poetry posting app, Poet’s Pick, that utilizes an API called ‘Free Dictionary API’ and
 another called ‘Random Free Random Word Generator API’. Here, the user is able to create
 and log in, where they will be suggested a random word of the day and create a poetry post that
@@ -29,23 +40,28 @@ result. Users would also be able to modify their posts to edit what they made. T
 through React Native that consumed information from a REST API and used a local database
 for caching.
 
+
 We got styling help for this document from this guide and this guide.
 
-Introduction
+# Introduction
+
 How was communication managed:
 
-Communication was mainly managed via Slack, Google Docs, and a group chat with our
-personal phone numbers. The group chat was mainly used to notify team members if we
-had a pull request to be merged, any questions we had, and anything we needed to let
-members know about availability and projected issues.
-Through Google Docs, we communicated our notes, ideas, and brainstorming to keep
-track of progress and keep each other accountable.
+- Communication was mainly managed via Slack, Google Docs, and a group chat with our
+    personal phone numbers. The group chat was mainly used to notify team members if we
+    had a pull request to be merged, any questions we had, and anything we needed to let
+    members know about availability and projected issues.
+- Through Google Docs, we communicated our notes, ideas, and brainstorming to keep
+    track of progress and keep each other accountable.
 How many stories/issues were initially considered
-Initially, the stories and issues we considered were 26.
+- Initially, the stories and issues we considered were 26.
 How many stories/issues were completed
-19 were completed as of September 11, 2025.
-Team Retrospective
-Shannyn Cabi
+- 19 were completed as of September 11, 2025.
+
+# Team Retrospective
+
+# Shannyn Cabi
+
 a link to your pull requests
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
@@ -58,8 +74,10 @@ https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/
 https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/
 https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/
 
-What was your role / which stories did you work on
+## What was your role / which stories did you work on
+
 What was the biggest challenge?
+
 
 ● Unit tests
 Why was it a challenge?
@@ -93,7 +111,8 @@ further experienced the importance of clear communication between teammates, sin
 this ensures no one is stepping over each other’s code, and we all know what to expect
 to be updated in incoming pull requests.
 
-Jesus Garcia-Loyola
+## Jesus Garcia-Loyola
+
 a link to your pull requests
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
 https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
@@ -102,11 +121,13 @@ https://github.com/JesusG2022/Project-1-cst-438-react-native/pull/
 a link to your issues
 Restart the file again
 
+
 Search Word - Search function
 Create a database for user.
 Add style to the pages
 
-What was your role / which stories did you work on
+### What was your role / which stories did you work on
+
 My role in this project is to jump-start the project by creating the React file and exporting SQLite.
 It is difficult for me since I did not know how to use React. So I watch YouTube videos on how to
 start a React project. But when I try to add Expo SQLite, it throws me some errors, and it came
@@ -132,47 +153,53 @@ What is the most valuable thing you learned?
 ● Learning how to use React and TypeScript. I know how to use Node.js, JavaScript, and
 HTML, so I was able to pick up the languages and technology
 
-Justin Park
+## Justin Park
+
 Justin’s Pull requests here:
 Justin’s GitHub issues:
 Link 1:
 
+
 Link 2:
 
-What was your role / which stories did you work on
-Justin’s role was to work on the app and be able to pull information from the API’s. They
-primarily contributed to the project by making the Word of the Day page, showing the
-word of the day, definitions, examples, part of speech, synonyms, and antonyms. They
-also made sure to keep the group on track and accountable throughout the duration of
-Project01. This was achieved by creating Google documents, the group chat, and
-facilitating brainstorming ideas and issues in order to carry on. While they did not
-delegate this role and others, they mainly helped get things going and interact with the
-API.
+### What was your role / which stories did you work on
+
+- Justin’s role was to work on the app and be able to pull information from the API’s. They
+    primarily contributed to the project by making the Word of the Day page, showing the
+    word of the day, definitions, examples, part of speech, synonyms, and antonyms. They
+    also made sure to keep the group on track and accountable throughout the duration of
+    Project01. This was achieved by creating Google documents, the group chat, and
+    facilitating brainstorming ideas and issues in order to carry on. While they did not
+    delegate this role and others, they mainly helped get things going and interact with the
+    API.
 What was the biggest challenge?
-Learning how to use React Native and Git/GitHub.
+- Learning how to use React Native and Git/GitHub.
 Why was it a challenge?
-Being able to figure out how to merge and pull requests without causing issues was
+- Being able to figure out how to merge and pull requests without causing issues was
 difficult. Being able to understand commands to input into the terminal and understand
 the process was also proven to be challenging. React Native and Git/GitHub were new
 to them, so having to learn them all at once proved to be challenging and overwhelming.
 How was the challenge addressed?
-This was addressed by speaking with the TAs and running through examples and the
+- This was addressed by speaking with the TAs and running through examples and the
 processes one by one. I wrote notes and documentation to refer back to in order to
 remember and remind myself how things worked, and tried to teach it back to myself.
-As for React Native, this was tackled by referring to a lot of documentation and YouTube
+- As for React Native, this was tackled by referring to a lot of documentation and YouTube
 tutorials, while trying to apply what was being shown to the project.
 Favorite / most interesting part of this project
-My favorite part was being able to actually learn what Git and GitHub are and put that
+- My favorite part was being able to actually learn what Git and GitHub are and put that
 into practice.
 If you could do it over, what would you change?
-I would change how I approached how I learned React Native and do more by doing,
+- I would change how I approached how I learned React Native and do more by doing,
 rather than consuming multiple YouTube tutorials and wasting time as a result.
 What is the most valuable thing you learned?
-The most valuable thing I learned was how to actually start practically applying Git and
+- The most valuable thing I learned was how to actually start practically applying Git and
 GitHub, and how to actually make branches and Pull Requests.
-Roy Sanchez-Ibarra
+
+## Roy Sanchez-Ibarra
+
 a link to your pull requests
 Roy's Pull Requests
+
 
 a link to your issues
 Delete post functionality
@@ -180,7 +207,8 @@ Daily word - Time reset
 Edit post functionality
 Home Page draft
 
-What was your role / which stories did you work on
+### What was your role / which stories did you work on
+
 I worked on the poems posts, home page and also made some adjustments to the database.
 What was the biggest challenge?
 Adding, removing and updating poem posts for each user was the biggest challenge.
@@ -199,20 +227,24 @@ favorite or a like button would make this app more engaging for the user.
 What is the most valuable thing you learned?
 Working on this project helped me get better using GitHub.
 
-Conclusion
-How successful was the project?
-Think in terms of what you set out to do and what actually got done.
 
-We believe that the project was a success. We were able to create an idea on Day 1 and
-actually execute it while facing hurdles and hiccups. Regardless of the problems that
-arose, we were able to create a functioning app that was able to execute what we
-envisioned at the very least.
-What was the largest victory?
+# Conclusion
 
-The largest victory for this project overall was being able to learn and apply React Native
+**How successful was the project?
+Think in terms of what you set out to do and what actually got done.**
+
+- We believe that the project was a success. We were able to create an idea on Day 1 and
+    actually execute it while facing hurdles and hiccups. Regardless of the problems that
+    arose, we were able to create a functioning app that was able to execute what we
+    envisioned at the very least.
+-
+**What was the largest victory?**
+- The largest victory for this project overall was being able to learn and apply React Native
 and TypeScript. As a group of four that had no prior experience, it was amazing to see
 that we were able to learn a new technology and apply it while being practical and using
 the lecture concepts as well.
-Final assessment of the project
-As an overall assessment of the project, we believe that everyone in the group
+**Final assessment of the project**
+- As an overall assessment of the project, we believe that everyone in the group
 contributed and performed well in the roles that they were assigned.
+
+
