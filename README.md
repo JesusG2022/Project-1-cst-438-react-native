@@ -55,15 +55,19 @@ What was your role / which stories did you work on
 What was the biggest challenge? 
 Unit tests
 Why was it a challenge?
-Many attempts at creating unit tests resulted in hours of diagnosing issues with package/dependency mismatches or not being found, removing many files and reinstalling dependencies, to no avail.
+- Many attempts at creating unit tests resulted in hours of diagnosing issues with package/dependency mismatches or not being found, removing many files and reinstalling dependencies, to no avail.
+
 How was the challenge addressed?
-After discussing with my teammates who ran into similar issues, and bringing it up to Dr. C, who saw other groups with similar experiences, due to this taking a large amount of time with no seeming progress toward success, I decided to leave it alone and focus on other issues. 
+- After discussing with my teammates who ran into similar issues, and bringing it up to Dr. C, who saw other groups with similar experiences, due to this taking a large amount of time with no seeming progress toward success, I decided to leave it alone and focus on other issues. 
+
 Favorite / most interesting part of this project
-I really enjoyed brainstorming with my team and having our user stories develop during this process. I also really enjoyed when each member would have a big breakthrough with a new feature, that brought us closer to a finalized product. It was also interesting to look over their code and see the approaches they took for certain functionalities, such as the word of the day, or random word functions.
+- I really enjoyed brainstorming with my team and having our user stories develop during this process. I also really enjoyed when each member would have a big breakthrough with a new feature, that brought us closer to a finalized product. It was also interesting to look over their code and see the approaches they took for certain functionalities, such as the word of the day, or random word functions.
+
 If you could do it over, what would you change?
-Next time, I will create the unit tests first, then write my code around those to ensure they are successful. It also seems this approach prevents issues with dependencies like I was facing. I think I would also get really specific about the urgency of each feature, and make a numbered list in the order I want to implement them.
+- Next time, I will create the unit tests first, then write my code around those to ensure they are successful. It also seems this approach prevents issues with dependencies like I was facing. I think I would also get really specific about the urgency of each feature, and make a numbered list in the order I want to implement them.
+
 What is the most valuable thing you learned?
-I learned the importance of creating detailed user stories, so each team member can narrow down on something very specific to work on. Building on top of that, being very clear about what features we want the app to have, since this helps with building the database accurately early on. I also experienced working on an issue and knowing when to let it go and move on to another functionality, or differentiating which issues/stories are really critical, or not too important and would take up lots of my time working on them. I further experienced the importance of clear communication between teammates, since this ensures no one is stepping over each other’s code, and we all know what to expect to be updated in incoming pull requests.
+- I learned the importance of creating detailed user stories, so each team member can narrow down on something very specific to work on. Building on top of that, being very clear about what features we want the app to have, since this helps with building the database accurately early on. I also experienced working on an issue and knowing when to let it go and move on to another functionality, or differentiating which issues/stories are really critical, or not too important and would take up lots of my time working on them. I further experienced the importance of clear communication between teammates, since this ensures no one is stepping over each other’s code, and we all know what to expect to be updated in incoming pull requests.
 
 ## Jesus Garcia-Loyola
 a link to your pull requests
