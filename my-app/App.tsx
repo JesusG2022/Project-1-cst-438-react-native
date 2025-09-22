@@ -10,8 +10,10 @@ import Page1 from './pages/page1'; // Page1 component
 import Page2 from './pages/page2'; // Page2 component
 import WordOftheDay from './pages/WordOftheDay'; // Word of the Day page component
 import MyPoems from './pages/MyPoems'; // MyPoems page component
+import Update from './pages/Update';
 import './database/database'; // Initializes the database
-
+import PasswordSignIn from './pages/passwordSignIn';
+import UpdatePassword from './pages/updatePassword';
 import { UserProvider } from './contexts/UserContext'; // User context provider for authentication
 
 import SearchPost from './pages/SeachPost';
@@ -34,6 +36,9 @@ export type RootStackParamList = {
   MyPoems: { userId: string }; // MyPoems screen expects a userId parameter
   SearchPost: undefined; // No parameters for SearchPost
   SearchResult: { query: string }; // SearchResult expects a query parameter
+  Update: { userId: string }; // Update screen expects a userId parameter
+  PasswordSignIn: undefined; // No parameters for PasswordSignIn
+  UpdatePassword: { userId: string }; // UpdatePassword screen expects a userId parameter
 };
 
 // Create the stack navigator
@@ -60,11 +65,14 @@ export default function App() {
           <Stack.Screen name="SearchPost" component={SearchPost} />
           <Stack.Screen name="SearchResult" component={SearchResult} />
           <Stack.Screen name="WordOftheDay" component={WordOftheDay} />
+          <Stack.Screen name="PasswordSignIn" component={PasswordSignIn} />
+          <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
           <Stack.Screen 
             name="MyPoems" 
             component={MyPoems}
             initialParams={{ userId: 'defaultUserId' }} // Default parameter for MyPoems screen
           />
+        <Stack.Screen name="Update" component={Update} />
         </Stack.Navigator>
         {/* Status bar for the app */}
         <StatusBar style="auto" />

@@ -246,6 +246,74 @@ export const getAllPostsByDay = async () => {
 };
 
 
+// Function to update user details
+export const updateUserDetails = async (userId: number, email: string, bio: string) => {
+  try {
+    const db = await dbPromise;
+    const updates = [];
+    const params: (string | number)[] = [];
 
+
+    if (email.trim()) {
+      updates.push('Email = ?');
+      params.push(email);
+    }
+    if (bio.trim()) {
+      updates.push('Bio = ?');
+      params.push(bio);
+    }
+
+    if (updates.length > 0) {
+      params.push(userId);
+      await db.runAsync(`UPDATE Users24 SET ${updates.join(', ')} WHERE UserId = ?`, params);
+    }
+  } catch (error) {
+    console.error('Error updating user details:', error);
+    throw error;
+  }
+};
+
+export const updateUserDetails2 = async (userId: number, email: string, bio: string, password?: string) => {
+  try {
+    const db = await dbPromise;
+    const updates = [];
+    const params: (string | number)[] = [];
+
+    if (email.trim()) {
+      updates.push('Email = ?');
+      params.push(email);
+    }
+    if (bio.trim()) {
+      updates.push('Bio = ?');
+      params.push(bio);
+    }
+    if (password && password.trim()) {
+      updates.push('Password = ?');
+      params.push(password);
+    }
+
+    if (updates.length > 0) {
+      params.push(userId);
+      await db.runAsync(`UPDATE Users24 SET ${updates.join(', ')} WHERE UserId = ?`, params);
+    }
+  } catch (error) {
+    console.error('Error updating user details:', error);
+    throw error;
+  }
+};
+
+export const getUserPasswordById = async (userId: number) => {
+  try {
+    const db = await dbPromise;
+    const user = await db.getFirstAsync<{ Password: string }>(
+      'SELECT Password FROM Users24 WHERE UserId = ?',
+      [userId]
+    );
+    return user ? user.Password : null;
+  } catch (error) {
+    console.error('Error fetching user password:', error);
+    throw error;
+  }
+};
 // Call the function to initialize the database when the module is loaded
 initializeDatabase();
