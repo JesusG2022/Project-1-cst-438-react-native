@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { getUserIdByUsername } from '../database/database'; // Import the function to fetch user ID by username
 
 // User interface to define the structure of user data
 interface User {
@@ -36,21 +37,19 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   // State to track the current logged-in user
   const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-  // Login function that maps usernames to user IDs and sets current user
+  // Login function that dynamically fetches user ID from the database
   const login = async (username: string) => {
-    const userMap: { [key: string]: number } = {
-      'jesus': 1,
-      'roy': 2,
-      'justin': 3,
-      'shannyn': 4
-    };
-    
-    const userId = userMap[username.toLowerCase()];
-    if (userId) {
-      // Set the current user in context
-      setCurrentUser({ userId, username });
-    } else {
-      throw new Error('User not found');
+    try {
+      const userId = await getUserIdByUsername(username); // Fetch user ID from the database
+      if (userId) {
+        // Set the current user in context
+        setCurrentUser({ userId, username });
+      } else {
+        throw new Error('User not found');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      throw new Error('Failed to log in. Please try again.');
     }
   };
 
@@ -64,7 +63,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     currentUser,
     setCurrentUser,
     login,
-    logout
+    logout,
   };
 
   // Return the UserContext.Provider with the value and children 
