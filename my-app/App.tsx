@@ -31,7 +31,7 @@ export type RootStackParamList = {
   SignUp: undefined; // No parameters for the SignUp screen
   Home: { userId: string }; // Home screen expects a userId parameter
   Page1: undefined; // No parameters for Page1
-  Page2: { username: string }; // Username to show their posts
+  Page2: { username: string }; // Username to show their Posts_last
   WordOftheDay: undefined; // No parameters for WordOftheDay
   MyPoems: { userId: string }; // MyPoems screen expects a userId parameter
   SearchPost: undefined; // No parameters for SearchPost

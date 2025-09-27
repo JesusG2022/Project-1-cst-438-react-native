@@ -64,14 +64,14 @@ const initializeDatabase = async () => {
 
     // Check if posts already exist
     try {
-//       const postCount = await db.getFirstAsync<{ count: number }>('SELECT COUNT(*) as count FROM Posts24');
+      const postCount = await db.getFirstAsync<{ count: number }>('SELECT COUNT(*) as count FROM Posts_last');
       const existingPosts = await db.getAllAsync('SELECT PostId, UserId, text_quote FROM Posts_last WHERE Title IS NULL OR Title = \'\'');
 
-      
+
       if (postCount && postCount.count > 0) {
         console.log('Posts already exist, skip sample data insertion');
       } else {
-        // Insert predefined posts into the Posts24 table
+        // Insert predefined posts into the Posts_last table
         const posts = [
           { UserId: 1, Date: '2025-09-05', Title: 'Jesus\' First Post', text_quote: 'This is a post by Jesus.' },
           { UserId: 1, Date: '2025-09-06', Title: 'Jesus\' Second Post', text_quote: 'This is another post by Jesus.' },
@@ -109,6 +109,10 @@ const initializeDatabase = async () => {
 // Function to add a new user to the User_last table
 export const addUser = async (username: string, password: string, email: string, bio: string) => {
   try {
+    if (!email.trim() && !bio.trim()) {
+      console.log("Error", "Please fill in at least one field to update.");
+      return;
+    }
     const db = await dbPromise; // Wait for the database connection to be established
     await db.runAsync(
 
@@ -160,9 +164,9 @@ export const addPost = async (userId: number, title: string, content: string) =>
     const now = new Date();
     const pstDate = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
     const currentDate = `${pstDate.getFullYear()}-${String(pstDate.getMonth() + 1).padStart(2, '0')}-${String(pstDate.getDate()).padStart(2, '0')}`;
-    
+
     const result = await db.runAsync(
-      `INSERT INTO Posts24 (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
+      `INSERT INTO Posts_last (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
       [userId, currentDate, title, content]
     );
     return result;
@@ -206,7 +210,7 @@ export const updatePost = async (postId: number, title: string, content: string)
   try {
     const db = await dbPromise;
     await db.runAsync(
-      `UPDATE Posts24 SET Title = ?, text_quote = ? WHERE PostId = ?`,
+      `UPDATE Posts_last SET Title = ?, text_quote = ? WHERE PostId = ?`,
       [title, content, postId]
     );
   } catch (error) {
@@ -219,7 +223,7 @@ export const updatePost = async (postId: number, title: string, content: string)
 export const deletePost = async (postId: number) => {
   try {
     const db = await dbPromise;
-    const result = await db.runAsync('DELETE FROM Posts24 WHERE PostId = ?', [postId]);
+    const result = await db.runAsync('DELETE FROM Posts_last WHERE PostId = ?', [postId]);
     return result;
   } catch (error) {
     console.error('Error deleting post:', error);
@@ -245,8 +249,8 @@ export const getAllPostsByDay = async () => {
     const db = await dbPromise;
     const posts = await db.getAllAsync(`
       SELECT p.PostId, p.UserId, p.Date, p.Title, p.text_quote, u.Username 
-      FROM Posts24 p 
-      JOIN Users24 u ON p.UserId = u.UserId 
+      FROM Posts_last p 
+      JOIN User_last u ON p.UserId = u.UserId 
       ORDER BY p.Date DESC, p.PostId DESC
     `);
     return posts; // Array of { PostId, UserId, Date, Title, text_quote, Username }
@@ -276,7 +280,7 @@ export const updateUserDetails = async (userId: number, email: string, bio: stri
 
     if (updates.length > 0) {
       params.push(userId);
-      await db.runAsync(`UPDATE Users24 SET ${updates.join(', ')} WHERE UserId = ?`, params);
+      await db.runAsync(`UPDATE User_last SET ${updates.join(', ')} WHERE UserId = ?`, params);
     }
   } catch (error) {
     console.error('Error updating user details:', error);
@@ -305,7 +309,7 @@ export const updateUserDetails2 = async (userId: number, email: string, bio: str
 
     if (updates.length > 0) {
       params.push(userId);
-      await db.runAsync(`UPDATE Users24 SET ${updates.join(', ')} WHERE UserId = ?`, params);
+      await db.runAsync(`UPDATE User_last SET ${updates.join(', ')} WHERE UserId = ?`, params);
     }
   } catch (error) {
     console.error('Error updating user details:', error);
@@ -317,7 +321,7 @@ export const getUserPasswordById = async (userId: number) => {
   try {
     const db = await dbPromise;
     const user = await db.getFirstAsync<{ Password: string }>(
-      'SELECT Password FROM Users24 WHERE UserId = ?',
+      'SELECT Password FROM User_last WHERE UserId = ?',
       [userId]
     );
     return user ? user.Password : null;
