@@ -24,7 +24,7 @@ const SignIn = () => {
 
       // Query the database to check if the username and password match
       const row = await db.getFirstAsync<{ UserId: number }>(
-        `SELECT UserId FROM User18 WHERE Username = ? AND Password = ?`,
+        `SELECT UserId FROM User_last WHERE Username = ? AND Password = ?`,
         [username, password]
       );
 
