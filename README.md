@@ -309,3 +309,11 @@ the lecture concepts as well.
 contributed and performed well in the roles that they were assigned.
 
 
+
+* npm i
+* npm start (and choose what device you want it).
+
+### IF your SQL or react-native DOES not work use this: 
+
+* npm install react-native @types/react-native
+* npm install expo-sqlite
