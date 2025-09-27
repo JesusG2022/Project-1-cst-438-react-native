@@ -1,36 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, ScrollView } from 'react-native';
-import { useRoute } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
-import { searchPosts } from '../database/database'; // Import the searchPosts function
-import Navbar from '../components/Navbar';
-import Title from '../components/Title';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TextInput, Image, Button } from 'react-native';
+import { useRoute, useNavigation, NavigationProp } from '@react-navigation/native';
+import { searchPosts } from '../database/database';
+import Layout from '../components/Layout';
 
-const SearchResult: React.FC = () => {
+type RootStackParamList = {
+  SearchResult: { query: string };
+  // add other screens here if needed
+};
+
+const SearchResult = () => {
   const route = useRoute();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { query } = route.params as { query: string };
-  const navigation = useNavigation<any>();
-  const [searchText, setSearchText] = useState(query);
   const [results, setResults] = useState<{ Date: string; text_quote: string }[]>([]);
+  const [filteredResults, setFilteredResults] = useState<{ Date: string; text_quote: string }[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchText, setSearchText] = useState(query);
 
-  // Fetch search results when the component mounts or the query changes
   useEffect(() => {
     const fetchResults = async () => {
-      const posts = await searchPosts(query);
-      setResults(posts as { Date: string; text_quote: string }[]);
+      try {
+        const posts = await searchPosts(query);
+        setResults(posts as { Date: string; text_quote: string }[]);
+        setFilteredResults(posts as { Date: string; text_quote: string }[]);
+      } catch (error) {
+        console.error('Error fetching search results:', error);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchResults();
   }, [query]);
 
   const handleSearch = () => {
-    navigation.navigate('SearchResult', { query: searchText });
+    if (searchText.trim() === '') {
+      setFilteredResults(results); // Reset to all results if search text is empty
+    } 
+            if (searchText.trim()) {
+            // Navigate to SearchResult screen with the search query as a parameter
+            navigation.navigate('SearchResult', { query: searchText });
+        }
   };
 
   return (
-    <View style={styles.container}>
-      <Title />
-      <Navbar />
-      <View style={{ height: 30 }} />
+    <Layout>
+      <Text style={styles.pageTitle}>Search Results</Text>
+      <Image
+        source={require('../img/hand-writing-close-up-animated-gif.gif')}
+        style={styles.image}
+      />
       <TextInput
         style={styles.searchBar}
         placeholder="Search posts..."
@@ -38,33 +58,41 @@ const SearchResult: React.FC = () => {
         onChangeText={setSearchText}
         autoCapitalize="none"
         autoCorrect={false}
-        clearButtonMode="while-editing"
       />
-      <View style={{ height: 30 }} />
+      <View style={{ height: 20 }} />
       <Button title="Search" onPress={handleSearch} />
-      <Text style={styles.resultText}>Search Results for: "{query}"</Text>
-      <View style={{ height: 40 }} />
-      <ScrollView>
-        {results.length === 0 ? (
-          <Text style={styles.noResults}>NO RESULTS FOUND</Text>
-        ) : (
-          results.map((result, index) => (
+      {loading ? (
+        <Text style={styles.loadingText}>Loading...</Text>
+      ) : filteredResults.length === 0 ? (
+        <Text style={styles.noResultsText}>No results found.</Text>
+      ) : (
+        <ScrollView style={styles.resultsContainer}>
+          {filteredResults.map((result, index) => (
             <View key={index} style={styles.resultBox}>
               <Text style={styles.resultDate}>{result.Date}</Text>
               <Text style={styles.resultText}>{result.text_quote}</Text>
             </View>
-          ))
-        )}
-      </ScrollView>
-    </View>
+          ))}
+        </ScrollView>
+      )}
+    </Layout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    backgroundColor: '#fff',
-    flex: 1,
+  pageTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    textAlign: 'center',
+    color: '#333',
+  },
+  image: {
+    width: 300,
+    height: 200,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginBottom: 20,
   },
   searchBar: {
     height: 40,
@@ -74,26 +102,33 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     backgroundColor: '#f9f9f9',
   },
-  resultText: {
-    fontSize: 18,
-    marginTop: 16,
-  },
-  noResults: {
-    fontSize: 18,
-    color: '#888',
+  loadingText: {
     textAlign: 'center',
     marginTop: 20,
+    color: '#888',
+  },
+  noResultsText: {
+    textAlign: 'center',
+    marginTop: 20,
+    color: '#888',
+  },
+  resultsContainer: {
+    padding: 10,
   },
   resultBox: {
-    padding: 16,
     marginBottom: 16,
-    backgroundColor: '#f2f2f2',
+    padding: 10,
+    backgroundColor: '#f9f9f9',
     borderRadius: 8,
   },
   resultDate: {
     fontSize: 14,
     color: '#888',
-    marginBottom: 8,
+    marginBottom: 4,
+  },
+  resultText: {
+    fontSize: 16,
+    color: '#333',
   },
 });
 

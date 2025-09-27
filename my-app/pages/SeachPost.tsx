@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation
 import type { StackNavigationProp } from '@react-navigation/stack';
+import Layout from '../components/Layout';
 
 type RootStackParamList = {
     SearchResult: { query: string };
 };
-
-import Navbar from '../components/Navbar'; 
-import Title from '../components/Title';  
 
 const SearchPost: React.FC = () => {
     const [searchText, setSearchText] = useState('');
@@ -22,10 +20,12 @@ const SearchPost: React.FC = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <Title />
-            <Navbar />
-            <View style={{ height: 30 }} />
+        <Layout>
+            <Text style={styles.pageTitle}>Search Page</Text>
+            <Image
+                source={require('../img/hand-writing-close-up-animated-gif.gif')} // Add the image here
+                style={styles.image}
+            />
             <TextInput
                 style={styles.searchBar}
                 placeholder="Search posts..."
@@ -37,15 +37,11 @@ const SearchPost: React.FC = () => {
             />
             <View style={{ height: 30 }} />
             <Button title="Search" onPress={handleSearch} />
-        </View>
+        </Layout>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 16,
-        backgroundColor: '#fff',
-    },
     searchBar: {
         height: 40,
         borderColor: '#ccc',
@@ -53,6 +49,20 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 12,
         backgroundColor: '#f9f9f9',
+    },
+    pageTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 16,
+        textAlign: 'center',
+        color: '#333',
+    },
+    image: {
+        width: 300, // Adjust the width as needed
+        height: 200, // Adjust the height as needed
+        resizeMode: 'contain', // Ensure the image fits within the dimensions
+        alignSelf: 'center', // Center the image horizontally
+        marginBottom: 20, // Add spacing below the image
     },
 });
 

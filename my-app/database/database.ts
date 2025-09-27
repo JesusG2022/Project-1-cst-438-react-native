@@ -10,10 +10,11 @@ const initializeDatabase = async () => {
 
     // Create the User table if it does not already exist
     await db.execAsync(`
+
       CREATE TABLE IF NOT EXISTS User_last (
         UserId INTEGER PRIMARY KEY AUTOINCREMENT, -- Auto-incrementing primary key
         Username VARCHAR(225) UNIQUE, -- Unique username
-        Password VARCHAR(225), -- Unique password
+        Password VARCHAR(225), 
         Email VARCHAR(255), -- Email address
         Bio VARCHAR(1000) -- User bio
       )
@@ -50,6 +51,7 @@ const initializeDatabase = async () => {
 
     for (const user of users) {
       try {
+
         // Insert each user into the User_last table
         await db.runAsync(
           `INSERT INTO User_last (Username, Password, Email, Bio) VALUES (?, ?, ?, ?)`,
@@ -60,31 +62,27 @@ const initializeDatabase = async () => {
       }
     }
 
-    // Check if posts already exist and update them with titles if needed
+    // Check if posts already exist
     try {
+//       const postCount = await db.getFirstAsync<{ count: number }>('SELECT COUNT(*) as count FROM Posts24');
       const existingPosts = await db.getAllAsync('SELECT PostId, UserId, text_quote FROM Posts_last WHERE Title IS NULL OR Title = \'\'');
+
       
-      if (existingPosts.length > 0) {
-        // Update existing posts with titles
-        for (const post of existingPosts) {
-          const postData = post as { PostId: number; UserId: number; text_quote: string };
-          const titles = ['First Post', 'My Post', 'Thoughts', 'Update', 'News'];
-          const randomTitle = titles[postData.UserId % titles.length] || 'My Post';
-          await db.runAsync(
-            `UPDATE Post15 SET Title = ? WHERE PostId = ?`,
-            [`User ${postData.UserId}'s ${randomTitle}`, postData.PostId]
-          );
-        }
-        console.log('Updated existing posts with titles');
+      if (postCount && postCount.count > 0) {
+        console.log('Posts already exist, skip sample data insertion');
       } else {
-        // Insert predefined posts into the Post15 table
+        // Insert predefined posts into the Posts24 table
         const posts = [
           { UserId: 1, Date: '2025-09-05', Title: 'Jesus\' First Post', text_quote: 'This is a post by Jesus.' },
+          { UserId: 1, Date: '2025-09-06', Title: 'Jesus\' Second Post', text_quote: 'This is another post by Jesus.' },
+          { UserId: 1, Date: '2025-09-07', Title: 'Jesus\' Third Post', text_quote: 'This is yet another post by Jesus.' },
+          { UserId: 1, Date: '2025-09-08', Title: 'Jesus\' Fourth Post', text_quote: 'This is the fourth post by Jesus.' },
           { UserId: 2, Date: '2025-09-05', Title: 'Roy\'s First Post', text_quote: 'This is a post by Roy.' },
           { UserId: 3, Date: '2025-09-05', Title: 'Justin\'s First Post', text_quote: 'This is a post by Justin.' },
           { UserId: 4, Date: '2025-09-05', Title: 'Shannyn\'s First Post', text_quote: 'This is a post by Shannyn.' }
         ];
 
+        // Insert sample posts using INSERT OR IGNORE to prevent duplicates
         for (const post of posts) {
           try {
             // Insert each post into the Post15 table
@@ -96,7 +94,7 @@ const initializeDatabase = async () => {
             console.error('Error inserting post:', post, error); // Log any errors during insertion
           }
         }
-        console.log('Inserted predefined posts');
+        console.log('Sample posts inserted successfully');
 
       }
     } catch (error) {
@@ -107,11 +105,13 @@ const initializeDatabase = async () => {
   }
 };
 
+
 // Function to add a new user to the User_last table
 export const addUser = async (username: string, password: string, email: string, bio: string) => {
   try {
     const db = await dbPromise; // Wait for the database connection to be established
     await db.runAsync(
+
       `INSERT INTO User_last (Username, Password, Email, Bio) VALUES (?, ?, ?, ?)`,
       [username, password, email, bio] // Insert user details into the table
     );
@@ -143,7 +143,6 @@ export const getPostsByUsername = async (username: string) => {
     // Get posts for that user
     const posts = await db.getAllAsync(
       'SELECT PostId, Date, Title, text_quote FROM Posts_last WHERE UserId = ? ORDER BY PostId DESC', // order posts by post id
-
       [user.UserId]
     );
     return posts; // Array of { PostId, Date, Title, text_quote }
@@ -163,7 +162,7 @@ export const addPost = async (userId: number, title: string, content: string) =>
     const currentDate = `${pstDate.getFullYear()}-${String(pstDate.getMonth() + 1).padStart(2, '0')}-${String(pstDate.getDate()).padStart(2, '0')}`;
     
     const result = await db.runAsync(
-      `INSERT INTO Post15 (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
+      `INSERT INTO Posts24 (UserId, Date, Title, text_quote) VALUES (?, ?, ?, ?)`,
       [userId, currentDate, title, content]
     );
     return result;
@@ -207,7 +206,7 @@ export const updatePost = async (postId: number, title: string, content: string)
   try {
     const db = await dbPromise;
     await db.runAsync(
-      `UPDATE Post15 SET Title = ?, text_quote = ? WHERE PostId = ?`,
+      `UPDATE Posts24 SET Title = ?, text_quote = ? WHERE PostId = ?`,
       [title, content, postId]
     );
   } catch (error) {
@@ -220,7 +219,7 @@ export const updatePost = async (postId: number, title: string, content: string)
 export const deletePost = async (postId: number) => {
   try {
     const db = await dbPromise;
-    const result = await db.runAsync('DELETE FROM Post15 WHERE PostId = ?', [postId]);
+    const result = await db.runAsync('DELETE FROM Posts24 WHERE PostId = ?', [postId]);
     return result;
   } catch (error) {
     console.error('Error deleting post:', error);
@@ -240,7 +239,92 @@ export const getUserIdByUsername = async (username: string) => {
   }
 };
 
+// Function to get all posts filtered by day, most recent first
+export const getAllPostsByDay = async () => {
+  try {
+    const db = await dbPromise;
+    const posts = await db.getAllAsync(`
+      SELECT p.PostId, p.UserId, p.Date, p.Title, p.text_quote, u.Username 
+      FROM Posts24 p 
+      JOIN Users24 u ON p.UserId = u.UserId 
+      ORDER BY p.Date DESC, p.PostId DESC
+    `);
+    return posts; // Array of { PostId, UserId, Date, Title, text_quote, Username }
+  } catch (error) {
+    console.error('Error fetching all posts by day:', error);
+    return [];
+  }
+};
 
 
+// Function to update user details
+export const updateUserDetails = async (userId: number, email: string, bio: string) => {
+  try {
+    const db = await dbPromise;
+    const updates = [];
+    const params: (string | number)[] = [];
+
+
+    if (email.trim()) {
+      updates.push('Email = ?');
+      params.push(email);
+    }
+    if (bio.trim()) {
+      updates.push('Bio = ?');
+      params.push(bio);
+    }
+
+    if (updates.length > 0) {
+      params.push(userId);
+      await db.runAsync(`UPDATE Users24 SET ${updates.join(', ')} WHERE UserId = ?`, params);
+    }
+  } catch (error) {
+    console.error('Error updating user details:', error);
+    throw error;
+  }
+};
+
+export const updateUserDetails2 = async (userId: number, email: string, bio: string, password?: string) => {
+  try {
+    const db = await dbPromise;
+    const updates = [];
+    const params: (string | number)[] = [];
+
+    if (email.trim()) {
+      updates.push('Email = ?');
+      params.push(email);
+    }
+    if (bio.trim()) {
+      updates.push('Bio = ?');
+      params.push(bio);
+    }
+    if (password && password.trim()) {
+      updates.push('Password = ?');
+      params.push(password);
+    }
+
+    if (updates.length > 0) {
+      params.push(userId);
+      await db.runAsync(`UPDATE Users24 SET ${updates.join(', ')} WHERE UserId = ?`, params);
+    }
+  } catch (error) {
+    console.error('Error updating user details:', error);
+    throw error;
+  }
+};
+
+export const getUserPasswordById = async (userId: number) => {
+  try {
+    const db = await dbPromise;
+    const user = await db.getFirstAsync<{ Password: string }>(
+      'SELECT Password FROM Users24 WHERE UserId = ?',
+      [userId]
+    );
+    return user ? user.Password : null;
+  } catch (error) {
+    console.error('Error fetching user password:', error);
+    throw error;
+  }
+};
 // Call the function to initialize the database when the module is loaded
 initializeDatabase();
