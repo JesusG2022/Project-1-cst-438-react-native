@@ -20,9 +20,9 @@ Github Repo: https://github.com/JesusG2022/Project-1-cst-438-react-native
 ## How to navigate
 
 - Home page shows daily posts
-- Accounts page shows all existing users, and clicking their name shows all their posts
-- Word shows the daily word and its definition, synonyms, antonyms
-- My Posts shows logged in user's posts
+- The accounts page shows all existing users, and clicking their name shows all their posts
+- Word shows the daily word and its definition, synonyms, and antonyms
+- My Posts shows logged-in users' posts
 - Search for a word that appears in a poem
 
 ## Future features
@@ -33,7 +33,7 @@ Github Repo: https://github.com/JesusG2022/Project-1-cst-438-react-native
 # Overview
 
 This is a poetry posting app, Poet’s Pick, that utilizes an API called ‘Free Dictionary API’ and
-another called ‘Random Free Random Word Generator API’. Here, the user is able to create
+another called ‘Random Free Random Word Generator API’. Here, the user can create
 and log in, where they will be suggested a random word of the day and create a poetry post that
 other users can view based on that given word. These were stored in a local database as a
 result. Users would also be able to modify their posts to edit what they made. This was built
@@ -106,17 +106,17 @@ reinstalling dependencies, to no avail.
 How was the challenge addressed?
 
 ● After discussing with my teammates who ran into similar issues, and bringing it up to Dr.
-C, who saw other groups with similar experiences, due to this taking a large amount of
+C, who saw other groups with similar experiences, due to this, taking a large amount of
 time with no seeming progress toward success, I decided to leave it alone and focus on
 other issues.
 
 Favorite / most interesting part of this project
 
-● I really enjoyed brainstorming with my team and having our user stories develop during
-this process. I also really enjoyed when each member would have a big breakthrough
-with a new feature, that brought us closer to a finalized product. It was also interesting to
+● I really enjoyed brainstorming with my team and having our user stories developed during
+this process. I also really enjoyed it when each member would have a big breakthrough
+with a new feature, which brought us closer to a finalized product. It was also interesting to
 look over their code and see the approaches they took for certain functionalities, such as
-the word of the day, or random word functions.
+the word of the day or random word functions.
 
 If you could do it over, what would you change?
 
@@ -132,7 +132,7 @@ narrow down on something very specific to work on. Building on top of that, bein
 clear about what features we want the app to have, since this helps with building the
 database accurately early on. I also experienced working on an issue and knowing when
 to let it go and move on to another functionality, or differentiating which issues/stories are
-really critical, or not too important and would take up lots of my time working on them. I
+really critical, or not too important, and would take up lots of my time working on them. I
 further experienced the importance of clear communication between teammates, since
 this ensures no one is stepping over each other’s code, and we all know what to expect
 to be updated in incoming pull requests.
@@ -214,7 +214,7 @@ Link 2: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues?q=is
     word of the day, definitions, examples, part of speech, synonyms, and antonyms. They
     also made sure to keep the group on track and accountable throughout the duration of
     Project01. This was achieved by creating Google documents, the group chat, and
-    facilitating brainstorming ideas and issues in order to carry on. While they did not
+    facilitating brainstorming ideas and issues to carry on. While they did not
     delegate this role and others, they mainly helped get things going and interact with the
     API.
 
@@ -229,7 +229,7 @@ to them, so having to learn them all at once proved to be challenging and overwh
 
 How was the challenge addressed?
 - This was addressed by speaking with the TAs and running through examples and the
-processes one by one. I wrote notes and documentation to refer back to in order to
+processes one by one. I wrote notes and documentation to refer back to to
 remember and remind myself how things worked, and tried to teach it back to myself.
 - As for React Native, this was tackled by referring to a lot of documentation and YouTube
 tutorials, while trying to apply what was being shown to the project.
@@ -239,20 +239,20 @@ Favorite / most interesting part of this project
 into practice.
 
 If you could do it over, what would you change?
-- I would change how I approached how I learned React Native and do more by doing,
-rather than consuming multiple YouTube tutorials and wasting time as a result.
+- I would change how I approached how I learned React Native and do more by doing.
+Rather than consuming multiple YouTube tutorials and wasting time as a result.
 What is the most valuable thing you learned?
 - The most valuable thing I learned was how to actually start practically applying Git and
 GitHub, and how to actually make branches and Pull Requests.
 
 ## Roy Sanchez-Ibarra
 
-a link to your pull requests:
+A link to your pull requests:
 
 Roy's Pull Requests: https://github.com/JesusG2022/Project-1-cst-438-react-native/pulls?q=is%3Apr+author%3AyYor+is%3Aclosed
 
 
-a link to your issues: 
+A link to your issues: 
 
 Delete post functionality: https://github.com/JesusG2022/Project-1-cst-438-react-native/issues/2
 
@@ -264,29 +264,29 @@ Home Page draft: https://github.com/JesusG2022/Project-1-cst-438-react-native/is
 
 ### What was your role / which stories did you work on
 
-- I worked on the poems posts, home page and also made some adjustments to the database.
+- I worked on the poems posts, home page, and also made some adjustments to the database.
 
 What was the biggest challenge?
-- Adding, removing and updating poem posts for each user was the biggest challenge.
+- Adding, removing, and updating poem posts for each user was the biggest challenge.
 
 Why was it a challenge?
-- At first the poems weren’t showing on the poems page. I would add a post to a user's account
+- At first, the poems weren’t showing on the poems page. I would add a post to a user's account
 and it would display as a post for all the users on the database.
 
 How was the challenge addressed?
 - I created a UserContext file to wrap around the application and it was able to handle the user’s
-post better. It also made it a lot easier to add a log out button.
+post better. It also made it a lot easier to add a log-out button.
 
 Favorite / most interesting part of this project
-- My favorite part of this project was coming up with ideas in our team. I think that working as a
+- My favorite part of this project was coming up with ideas in our team. Working as a
 team to build on top of ideas helped us create a unique product.
 
 If you could do it over, what would you change?
-- If I could do this project again I would probably add more user functionality. I think that adding a
-favorite or a like button would make this app more engaging for the user.
+- If I could do this project again, I would add more user functionality. I think that adding aA 
+A favorite or a like button would make this app more engaging for the user.
 
 What is the most valuable thing you learned?
-- Working on this project helped me get better using GitHub.
+- Working on this project helped me get better at using GitHub.
 
 
 # Conclusion
@@ -307,13 +307,3 @@ the lecture concepts as well.
 **Final assessment of the project**
 - As an overall assessment of the project, we believe that everyone in the group
 contributed and performed well in the roles that they were assigned.
-
-
-
-* npm i
-* npm start (and choose what device you want it).
-
-### IF your SQL or react-native DOES not work use this: 
-
-* npm install react-native @types/react-native
-* npm install expo-sqlite
